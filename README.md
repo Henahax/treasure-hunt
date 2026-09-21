@@ -56,3 +56,5 @@ flowchart TD
 
 - generate a hunt from a JSON file
 - store Markdown step text in separate files or inside the JSON file
+- location
+- password

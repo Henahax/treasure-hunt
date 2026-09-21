@@ -1,0 +1,73 @@
+{
+	"id": "",
+	"name": "Example Treasure Hunt",
+	"picture": "",
+	"description": "",
+	"steps": [
+		{
+			"index": 1,
+			"title": "Step 1",
+			"description": "",
+			"type": "password",
+			"password": "examplepassword",
+			"content": [
+				{
+					"index": 1,
+					"type": "text",
+					"text": "regular or markdown text"
+				},
+				{
+					"index": 2,
+					"type": "image",
+					"url": "https://example.com/image.jpg"
+				}
+			]
+		},
+		{
+			"index": 2,
+			"title": "Step 2",
+			"description": "",
+			"type": "text",
+			"content": [
+				{
+					"index": 1,
+					"type": "image",
+					"url": "https://example.com/image.jpg"
+				},
+				{
+					"index": 2,
+					"type": "text",
+					"text": "regular or markdown text"
+				}
+			]
+		},
+		{
+			"index": 3,
+			"title": "Step 3",
+			"description": "",
+			"type": "location",
+			"location": {
+				"latitude": 37.7749,
+				"longitude": -122.4194,
+				"radius": 50
+			},
+			"content": [
+				{
+					"index": 1,
+					"type": "text",
+					"text": "regular or markdown text"
+				},
+				{
+					"index": 2,
+					"type": "image",
+					"url": "https://example.com/image.jpg"
+				},
+				{
+					"index": 3,
+					"type": "text",
+					"text": "regular or markdown text"
+				}
+			]
+		}
+	]
+}
