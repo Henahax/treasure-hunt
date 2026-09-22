@@ -1,16 +1,17 @@
 <script lang="ts">
+	import { translator } from '$lib/translator/index.svelte';
 	import { resolve } from '$app/paths';
 </script>
 
-<h1>Treasure Hunt</h1>
-
-<div class="flex w-fit flex-col gap-4">
-	<button type="button" class="btn btn-primary">Continue</button>
+<div class="flex w-fit flex-col gap-8">
+	<button type="button" class="btn btn-primary">{translator.t('form.continue')}</button>
 
 	<div class="flex gap-4">
-		<input type="text" placeholder="Enter your code here" />
-		<button class="btn btn-primary">Submit</button>
+		<input type="text" placeholder={translator.t('form.enter-code')} />
+		<button class="btn btn-primary">{translator.t('form.submit')}</button>
 	</div>
 
-	<a href={resolve('/treasure-hunts')} class="btn btn-neutral">Browse Treasure Hunts</a>
+	<a href={resolve('/treasure-hunts')} class="btn btn-neutral">
+		{translator.t('form.browse-treasure-hunts')}
+	</a>
 </div>
