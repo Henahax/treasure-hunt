@@ -3,7 +3,7 @@
 	import { translator } from '$lib/translator/index.svelte';
 </script>
 
-<nav aria-label="App-Menü" class="border-t border-neutral-700 bg-neutral-800 p-2">
+<nav aria-label="App-Menü" class="fixed right-0 bottom-0 left-0 sm:top-0 sm:bottom-auto">
 	<ul class="mx-auto flex max-w-md items-center justify-around gap-2">
 		<li>
 			<a href={resolve('/')} class="btn btn-ghost">
