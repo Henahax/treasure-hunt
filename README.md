@@ -1,60 +1,59 @@
 # Treasure Hunt
 
-## Planning
+## Project Planning
 
-### Technologies
+### Technology Stack
 
 - Svelte
 - SvelteKit
 - PostgreSQL
 
-### Features
+### Core Features
 
-- available treasure hunts
-- load/unlock hunt via code
-- QR Code Reader
-- share treasure hunts
+- Available treasure hunts
+- Load or unlock a hunt via code
+- QR code reader
+- Share treasure hunts
 
 ### Dialogs
 
-- Start menu
-- Treasure Hunt Browser
-- Treasure Hunt
-  - Intro
-  - Steps (one or more)
+- **Start Menu**
+- **Treasure Hunt Browser**
+- **Treasure Hunt**
+  - Description
+  - Steps
   - Finished
+
+#### Navigation Flow
 
 ```mermaid
 flowchart TD
     start[Start menu]
     browser[Treasure hunt browser]
 
-    intro([Intro])
-    first[First step]
-    more[More steps ...]
-    last[Last step]
-    finish([Finished])
+    intro[Treasure hunt description]
+    steps[Treasure hunt steps]
+    finish[Treasure hunt finished]
 
     start --> browser
     start -->|enter code| intro
-    browser -->|select hunt| intro
-    intro -->|start| first
-    first --> more
-    more --> last
-    last --> finish
-    browser -.->|back| start
-    intro -.->|back| browser
-    finish -.->|back| browser
+    browser -->|select treasure hunt| intro
+    intro -->|start / continue| steps
+    steps -->|continue / password / location| steps
+    steps -->finish
+    finish -->|back| start
 ```
 
-### modals
+### Modals
 
 - QR code scanner
 - Step menu
 
-## ideas
+## Ideas
 
-- generate a hunt from a JSON file
-- store Markdown step text in separate files or inside the JSON file
-- location
-- password
+- Generate a hunt from a JSON file
+- Store Markdown step text in separate files or inside the JSON file
+- Step solutions
+  - continue
+  - password
+  - location
