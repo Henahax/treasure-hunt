@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { translator } from '$lib/translator/index.svelte';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
+	import { translator } from '$lib/translator/index.svelte';
 	import { resolve } from '$app/paths';
 
 	let { children } = $props();
@@ -19,65 +19,119 @@
 	/>
 </svelte:head>
 
-<div class="grid h-dvh min-h-dvh grid-rows-[auto_minmax(0,1fr)_auto]">
-	<nav aria-label="App-Menu" class="flex items-center justify-center gap-2">
+<header class="flex px-4">
+	<nav class="mx-auto flex max-w-7xl grow items-center justify-between gap-8">
 		<a
-			class="flex items-center justify-center gap-2 p-2 font-bold max-sm:hidden"
+			id="title"
+			class="btn btn-ghost h-full text-xl"
 			href={resolve('/')}
-			aria-label={translator.t('title')}
+			aria-label={translator.translate('title')}
 		>
 			<i class="fa-solid fa-map"></i>
-			{translator.t('title')}
+			<span>{translator.translate('title')}</span>
 		</a>
-		<ul class="mx-auto flex max-w-md items-center justify-around">
-			<li>
-				<a href={resolve('/')} class="btn btn-ghost btn-mobile-menu">
+		<ul>
+			<li class="sm:hidden">
+				<a href={resolve('/')} class="btn btn-ghost btn-menu">
 					<i class="fa-solid fa-house"></i>
-					<span class="max-sm:hidden">{translator.t('nav.home')}</span>
+					<span>{translator.translate('nav.home')}</span>
 				</a>
 			</li>
 			<li>
-				<a href={resolve('/treasure-hunts')} class="btn btn-ghost btn-mobile-menu">
-					<i class="fa-solid fa-map"></i>
-					<span class="max-sm:hidden">{translator.t('nav.treasure-hunts')}</span>
+				<a href={resolve('/treasure-hunts')} class="btn btn-ghost btn-menu">
+					<i class="fa-regular fa-map"></i>
+					<span>{translator.translate('nav.browse')}</span>
+				</a>
+			</li>
+			<li>
+				<a href={resolve('/treasure-hunts')} class="btn btn-ghost btn-menu">
+					<i class="fa-regular fa-compass"></i>
+					<span>{translator.translate('nav.browse')}</span>
 				</a>
 			</li>
 		</ul>
 	</nav>
+</header>
 
-	<main id="content" class="flex min-w-0 flex-col items-center p-4">
-		<div class="flex min-h-0 w-full flex-1 flex-col items-center justify-center">
-			{@render children()}
-		</div>
+<main class="flex w-full max-w-7xl grow flex-col gap-4 p-4">
+	<section id="content" class="mx-auto flex grow flex-col justify-center gap-4">
+		{@render children()}
+	</section>
 
-		<footer class="w-full text-center text-xs text-neutral-500">Copyright © 2026 Henahax</footer>
-	</main>
-</div>
+	<footer class="flex w-full justify-between text-xs text-neutral-500">
+		<span class="grow text-center">Copyright © 2026 Henahax</span>
+		<a href="https://github.henahax.net/treasure-hunt" class="">
+			<i class="fa-brands fa-github"></i>
+			<span>Source</span>
+		</a>
+	</footer>
+</main>
 
 <style>
-	.btn-mobile-menu {
-		font-size: 1.5rem;
-		padding: 0.5em;
+	:root {
+		--menu-border: var(--color-neutral-500);
+	}
+
+	:global(body) {
+		min-height: 100dvh;
+		height: 100dvh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	header {
+		position: sticky;
+		top: 0;
+		width: 100%;
+
+		border-top: none;
+		border-bottom: 1px solid var(--menu-border);
+	}
+
+	header nav ul {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	header .btn-menu {
+		gap: 0.25rem;
+		flex-direction: column;
+	}
+
+	header .btn-menu i {
+		font-size: 1.25rem;
+	}
+
+	header .btn-menu span {
+		font-size: 0.75rem;
 	}
 
 	main {
-		grid-row: 2;
-	}
-
-	nav {
-		background-color: blue;
-		grid-row: 1;
-		position: sticky;
-		top: 0;
+		overflow-y: auto;
 	}
 
 	@media (width < 40rem) {
-		nav {
-			background-color: red;
-			grid-row: 3;
-			top: auto;
+		:global(body) {
+			flex-direction: column-reverse;
+		}
+
+		header {
 			position: sticky;
 			bottom: 0;
+
+			border-bottom: none;
+			border-top: 1px solid var(--menu-border);
+		}
+
+		header #title {
+			display: none;
+		}
+
+		header nav ul {
+			width: 100%;
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 </style>

@@ -10,9 +10,9 @@ const translations = {
             de: 'Startseite',
             en: 'Home'
         },
-        'treasure-hunts': {
-            de: 'Schnitzeljagden',
-            en: 'Treasure Hunts'
+        'browse': {
+            de: 'Durchsuchen',
+            en: 'Browse'
         }
     },
     form: {
@@ -39,7 +39,7 @@ const translations = {
 type TranslationKey =
     | 'title'
     | 'nav.home'
-    | 'nav.treasure-hunts'
+    | 'nav.browse'
     | 'form.continue'
     | 'form.submit'
     | 'form.enter-code'
@@ -48,7 +48,7 @@ type TranslationKey =
 class Translator {
     locale = $state<Locale>('de');
 
-    t(key: TranslationKey): string {
+    translate(key: TranslationKey): string {
         let entry: unknown = translations;
 
         for (const segment of key.split('.')) {
