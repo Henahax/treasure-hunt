@@ -3,9 +3,9 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-	--primary: rebeccapurple;
-
 	color-scheme: dark;
+
+	--primary: rebeccapurple;
 
 	background-color: var(--color-neutral-900);
 	color: var(--color-neutral-50);
@@ -37,7 +37,7 @@
 }
 
 .btn-ghost:hover {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(255, 255, 255, 0.1);
 }
 
 .btn-icon {

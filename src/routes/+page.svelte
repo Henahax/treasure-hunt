@@ -3,7 +3,7 @@
 	import { resolve } from '$app/paths';
 </script>
 
-<div class="flex w-fit flex-col gap-8">
+<div class="flex flex-col gap-8">
 	<button type="button" class="btn btn-primary">{translator.translate('form.continue')}</button>
 
 	<div class="flex gap-4">

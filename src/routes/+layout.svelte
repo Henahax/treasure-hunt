@@ -95,7 +95,7 @@
 	}
 
 	header .btn-menu {
-		gap: 0.25rem;
+		gap: 0.125rem;
 		flex-direction: column;
 	}
 
@@ -118,6 +118,7 @@
 
 		header {
 			position: sticky;
+			padding: 0;
 			bottom: 0;
 
 			border-bottom: none;
