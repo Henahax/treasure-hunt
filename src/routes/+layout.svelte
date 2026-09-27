@@ -4,6 +4,7 @@
 
 	import { translator } from '$lib/translator/index.svelte';
 	import { resolve } from '$app/paths';
+	import { treasureHunt } from '$lib/state/treasure-hunt.svelte';
 
 	let { children } = $props();
 </script>
@@ -38,10 +39,20 @@
 				</a>
 			</li>
 			<li>
-				<a href={resolve('/treasure-hunts')} class="btn btn-ghost btn-menu">
-					<i class="fa-regular fa-map"></i>
-					<span>{translator.translate('nav.browse')}</span>
-				</a>
+				{#if treasureHunt.id > 0}
+					<a
+						href={resolve('/treasure-hunt/[slug]', { slug: String(treasureHunt.id) })}
+						class="btn btn-ghost btn-menu"
+					>
+						<i class="fa-solid fa-play"></i>
+						<span>{translator.translate('nav.continue')}</span>
+					</a>
+				{:else}
+					<button class="btn btn-ghost btn-menu" disabled>
+						<i class="fa-regular fa-map"></i>
+						<span>{translator.translate('title')}</span>
+					</button>
+				{/if}
 			</li>
 			<li>
 				<a href={resolve('/treasure-hunts')} class="btn btn-ghost btn-menu">
@@ -54,7 +65,7 @@
 </header>
 
 <main class="flex w-full max-w-7xl grow flex-col gap-4 p-4">
-	<section id="content" class="mx-auto flex grow flex-col justify-center gap-4">
+	<section id="content" class="flex grow flex-col justify-center gap-4">
 		{@render children()}
 	</section>
 
@@ -97,6 +108,7 @@
 	header .btn-menu {
 		gap: 0.125rem;
 		flex-direction: column;
+		width: 100%;
 	}
 
 	header .btn-menu i {

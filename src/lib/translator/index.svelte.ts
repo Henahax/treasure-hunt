@@ -13,6 +13,10 @@ const translations = {
         'browse': {
             de: 'Entdecken',
             en: 'Browse'
+        },
+        'continue': {
+            de: 'Fortsetzen',
+            en: 'Continue'
         }
     },
     form: {
@@ -40,6 +44,7 @@ type TranslationKey =
     | 'title'
     | 'nav.home'
     | 'nav.browse'
+    | 'nav.continue'
     | 'form.continue'
     | 'form.submit'
     | 'form.enter-code'
