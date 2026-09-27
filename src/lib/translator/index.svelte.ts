@@ -11,7 +11,7 @@ const translations = {
             en: 'Home'
         },
         'browse': {
-            de: 'Durchsuchen',
+            de: 'Entdecken',
             en: 'Browse'
         }
     },
