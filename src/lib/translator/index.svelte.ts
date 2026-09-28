@@ -26,15 +26,15 @@ const translations = {
         },
 
         'enter-code': {
-            de: 'Code eingeben',
-            en: 'Enter code'
+            de: 'Code scannen oder eingeben',
+            en: 'Scan or enter code'
         },
         submit: {
             de: 'Absenden',
             en: 'Submit'
         },
         'browse-treasure-hunts': {
-            de: 'Schnitzeljagden durchsuchen',
+            de: 'Schnitzeljagden entdecken',
             en: 'Browse Treasure Hunts'
         }
     }

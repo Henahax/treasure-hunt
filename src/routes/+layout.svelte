@@ -64,8 +64,8 @@
 	</nav>
 </header>
 
-<main class="flex w-full max-w-7xl grow flex-col gap-4 p-4">
-	<section id="content" class="flex grow flex-col justify-center gap-4">
+<main class="flex w-full max-w-2xl grow flex-col gap-4 p-4">
+	<section id="content" class="flex w-full grow flex-col justify-center gap-4">
 		{@render children()}
 	</section>
 

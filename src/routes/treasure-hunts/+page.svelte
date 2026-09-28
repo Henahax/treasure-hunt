@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { treasureHunt } from '$lib/state/treasure-hunt.svelte';
+	import Continue from '$lib/components/Continue.svelte';
 
 	let test = [
 		{
@@ -26,10 +26,7 @@
 
 <div>Browser</div>
 
-{#if treasureHunt.id !== 0}
-	<div>Active treasure-hunt:</div>
-	<a href={resolve('/treasure-hunt/[slug]', { slug: String(treasureHunt.id) })}>Continue</a>
-{/if}
+<Continue />
 
 <div class="grid grid-cols-[1fr_auto] divide-y rounded-md border">
 	{#each test as myTest}
