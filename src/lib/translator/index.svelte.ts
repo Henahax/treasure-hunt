@@ -19,6 +19,16 @@ const translations = {
             en: 'Continue'
         }
     },
+    'treasure-hunt': {
+        'active-hunt': {
+            de: 'Aktive Schnitzeljagd',
+            en: 'Active Treasure Hunt'
+        },
+        'reset': {
+            de: 'Zurücksetzen',
+            en: 'Reset'
+        }
+    },
     form: {
         continue: {
             de: 'Fortfahren',
@@ -45,6 +55,8 @@ type TranslationKey =
     | 'nav.home'
     | 'nav.browse'
     | 'nav.continue'
+    | 'treasure-hunt.active-hunt'
+    | 'treasure-hunt.reset'
     | 'form.continue'
     | 'form.submit'
     | 'form.enter-code'

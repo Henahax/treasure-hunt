@@ -1,12 +1,27 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
 	import { translator } from '$lib/translator/index.svelte';
 	import { resolve } from '$app/paths';
-	import { treasureHunt } from '$lib/state/treasure-hunt.svelte';
+	import {
+		initializeTreasureHuntState,
+		treasureHunt,
+		type TreasureHunt
+	} from '$lib/state/treasure-hunt.svelte';
 
 	let { children } = $props();
+	const treasureHunts = Object.entries(
+		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {
+			eager: true,
+			import: 'default'
+		})
+	)
+		.filter(([path]) => !path.endsWith('/schema.json'))
+		.map(([, hunt]) => hunt);
+
+	onMount(() => initializeTreasureHuntState(treasureHunts));
 </script>
 
 <svelte:head>

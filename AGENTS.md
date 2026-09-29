@@ -8,7 +8,7 @@ Planning and building a treasure-hunt application with QR-code steps and shareab
 
 **Technologies:**
 
-TypeScript, Svelte 5, SvelteKit, PostgreSQL, Drizzle, Tailwind CSS
+TypeScript, Svelte 5, SvelteKit, Tailwind CSS
 
 ## Shared Agent Skills
 

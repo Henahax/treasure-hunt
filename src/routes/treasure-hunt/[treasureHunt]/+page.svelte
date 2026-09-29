@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { treasureHunt } from '$lib/state/treasure-hunt.svelte';
+	import {
+		getNextTreasureHuntStep,
+		isStepCompleted,
+		setActiveTreasureHunt,
+		treasureHunt
+	} from '$lib/state/treasure-hunt.svelte';
+	import ResetActiveTreasureHunt from '$lib/components/TreasureHuntActiveReset.svelte';
 	import type { TreasureHunt } from '$lib/state/treasure-hunt.svelte';
 
 	import type { PageProps } from './$types';
@@ -18,20 +24,30 @@
 		treasureHunts.find((hunt) => hunt.id === params.treasureHunt) ?? null
 	);
 	const firstStep = $derived(selectedTreasureHunt?.steps[0] ?? null);
+	const hasProgress = $derived(
+		selectedTreasureHunt?.steps.some((step) => isStepCompleted(selectedTreasureHunt, step.id)) ??
+			false
+	);
 
 	async function startTreasureHunt() {
-		if (!selectedTreasureHunt || !firstStep) return;
+		if (!selectedTreasureHunt) return;
 
-		treasureHunt.active = selectedTreasureHunt;
+		const nextStep = getNextTreasureHuntStep(selectedTreasureHunt) ?? firstStep;
+		if (!nextStep) return;
+
+		setActiveTreasureHunt(selectedTreasureHunt);
 		await goto(
 			resolve('/treasure-hunt/[treasureHunt]/[step]', {
 				treasureHunt: selectedTreasureHunt.id,
-				step: firstStep.id
+				step: nextStep.id
 			})
 		);
 	}
 </script>
 
 <button onclick={startTreasureHunt} disabled={!selectedTreasureHunt || !firstStep}>
-	{treasureHunt.active?.id === selectedTreasureHunt?.id ? 'Jagd fortsetzen' : 'Jagd starten'}
+	{treasureHunt.active?.id === selectedTreasureHunt?.id || hasProgress
+		? 'Jagd fortsetzen'
+		: 'Jagd starten'}
 </button>
+<ResetActiveTreasureHunt />

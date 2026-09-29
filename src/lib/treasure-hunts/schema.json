@@ -197,6 +197,9 @@
 					"$ref": "#/$defs/textContent"
 				},
 				{
+					"$ref": "#/$defs/videoContent"
+				},
+				{
 					"$ref": "#/$defs/imageContent"
 				},
 				{
@@ -216,6 +219,22 @@
 				"text": {
 					"type": "string",
 					"description": "Regular text or Markdown."
+				}
+			}
+		},
+
+		"videoContent": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["type", "url"],
+			"properties": {
+				"type": {
+					"const": "video"
+				},
+				"url": {
+					"type": "string",
+					"format": "uri",
+					"description": "YouTube video URL. Optional t or start timestamp parameters are preserved in the embed."
 				}
 			}
 		},

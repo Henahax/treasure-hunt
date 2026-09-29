@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import Continue from '$lib/components/Continue.svelte';
+	import TreasureHuntActive from '$lib/components/TreasureHuntActive.svelte';
 
 	type TreasureHunt = {
 		id: string;
@@ -19,9 +19,9 @@
 		.map(([, treasureHunt]) => treasureHunt);
 </script>
 
-<div>Browser</div>
+<TreasureHuntActive />
 
-<Continue />
+<div>Browser</div>
 
 <div class="grid grid-cols-[1fr_auto] divide-y rounded-md border">
 	{#each treasureHunts as treasureHunt}

@@ -15,7 +15,11 @@
 				},
 				{
 					"type": "image",
-					"url": "https://example.com/images/first-clue.jpg"
+					"url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg"
+				},
+				{
+					"type": "video",
+					"url": "https://www.youtube.com/watch?v=aqz-KE-bpKQ&t=30s"
 				},
 				{
 					"type": "link",
@@ -35,7 +39,7 @@
 				},
 				{
 					"type": "image",
-					"url": "https://example.com/images/code-clue.jpg"
+					"url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg"
 				}
 			]
 		},
@@ -55,7 +59,7 @@
 				},
 				{
 					"type": "image",
-					"url": "https://example.com/images/marienplatz.jpg"
+					"url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg"
 				},
 				{
 					"type": "link",
@@ -75,7 +79,7 @@
 				},
 				{
 					"type": "image",
-					"url": "https://example.com/images/night-watch.jpg"
+					"url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg"
 				}
 			]
 		}
