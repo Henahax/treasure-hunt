@@ -39,9 +39,11 @@
 				</a>
 			</li>
 			<li>
-				{#if treasureHunt.id > 0}
+				{#if treasureHunt.active}
 					<a
-						href={resolve('/treasure-hunt/[slug]', { slug: String(treasureHunt.id) })}
+						href={resolve('/treasure-hunt/[treasureHunt]', {
+							treasureHunt: treasureHunt.active.id
+						})}
 						class="btn btn-ghost btn-menu"
 					>
 						<i class="fa-solid fa-play"></i>
