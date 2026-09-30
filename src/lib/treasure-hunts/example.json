@@ -2,7 +2,8 @@
 	"id": "munich-old-town",
 	"name": "The Mystery of the Old Town",
 	"description": "A small treasure hunt through Munich's old town. Follow the clues and find the treasure at the end.",
-	"picture": "https://example.com/images/munich-old-town.jpg",
+	"public": true,
+	"picture": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Neues_Rathaus_in_M%C3%BCnchen_-_Panorama.jpg/960px-Neues_Rathaus_in_M%C3%BCnchen_-_Panorama.jpg",
 	"steps": [
 		{
 			"id": "start",
@@ -71,11 +72,27 @@
 			"id": "night-watch",
 			"title": "The Night Watch",
 			"type": "time",
-			"time": 1790611200,
+			"time": 1767225600,
 			"content": [
 				{
 					"type": "text",
-					"text": "This clue will only become available at a specific time."
+					"text": "This timed clue is already available. Continue to unlock the final countdown."
+				},
+				{
+					"type": "image",
+					"url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg"
+				}
+			]
+		},
+		{
+			"id": "final-countdown",
+			"title": "The Final Signal",
+			"type": "time",
+			"time": 1796040000,
+			"content": [
+				{
+					"type": "text",
+					"text": "The final clue becomes available after the countdown reaches zero."
 				},
 				{
 					"type": "image",

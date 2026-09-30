@@ -2,6 +2,8 @@ export type TreasureHunt = {
     id: string;
     name: string;
     description: string;
+    public: boolean;
+    picture?: string;
     steps: TreasureHuntStep[];
 };
 
@@ -100,9 +102,7 @@ export function isStepUnlocked(hunt: TreasureHunt, stepId: string) {
 
 export function getNextTreasureHuntStep(hunt: TreasureHunt) {
     return (
-        hunt.steps.find(
-            (step) => !isStepCompleted(hunt, step.id) && isStepUnlocked(hunt, step.id)
-        ) ??
+        hunt.steps.find((step) => !isStepCompleted(hunt, step.id) && isStepUnlocked(hunt, step.id)) ??
         hunt.steps.at(-1) ??
         null
     );

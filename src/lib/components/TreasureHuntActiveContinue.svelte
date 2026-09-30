@@ -6,7 +6,6 @@
 
 {#if treasureHunt.active}
 	<div class="flex w-full flex-col gap-2">
-		<!--<div>{translator.translate('treasure-hunt.active-hunt')}</div>-->
 		<a
 			href={resolve('/treasure-hunt/[treasureHunt]', {
 				treasureHunt: treasureHunt.active.id
@@ -15,16 +14,9 @@
 		>
 			<div class="grid grid-cols-[auto_1fr] items-center justify-items-start gap-x-4 text-start">
 				<i class="fa-solid fa-play row-span-2 text-2xl"></i>
-				<span class="text-xs opacity-75">
-					{translator.translate('nav.continue')}:
-				</span>
+				<span class="text-xs opacity-75">{translator.translate('nav.continue')}:</span>
 				<div class="text-lg font-bold">{treasureHunt.active.name}</div>
 			</div>
 		</a>
 	</div>
 {/if}
-
-<style>
-	button {
-	}
-</style>

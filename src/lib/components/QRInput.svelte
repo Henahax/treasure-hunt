@@ -2,31 +2,49 @@
 	import { translator } from '$lib/translator/index.svelte';
 	import QRScanner from '$lib/components/QRScanner.svelte';
 
-	let { value = $bindable('') }: { value?: string } = $props();
+	let {
+		value = $bindable(''),
+		inputLabel,
+		placeholder,
+		submitLabel,
+		required = false
+	}: {
+		value?: string;
+		inputLabel?: string;
+		placeholder?: string;
+		submitLabel?: string;
+		required?: boolean;
+	} = $props();
 	let isScanning = $state(false);
 </script>
 
 <div class="flex">
 	<button
-		id="code-scan"
-		class="btn btn-neutral"
-		aria-label="QR-Code scannen"
+		type="button"
+		class="qr-input-scan btn btn-neutral"
+		aria-label={translator.translate('scanner.title')}
 		onclick={() => (isScanning = true)}
 	>
 		<i class="fa-solid fa-qrcode"></i>
-		<span class="max-md:hidden">Scannen</span>
+		<span class="max-md:hidden">{translator.translate('form.scan')}</span>
 	</button>
 
 	<input
 		bind:value
 		type="text"
-		placeholder={translator.translate('form.enter-code')}
+		aria-label={inputLabel ?? translator.translate('form.codeLabel')}
+		placeholder={placeholder ?? translator.translate('form.codePlaceholder')}
+		{required}
 		class="w-full"
 	/>
 
-	<button id="code-submit" class="btn btn-primary" aria-label="QR-Code">
+	<button
+		type="submit"
+		class="qr-input-submit btn btn-primary"
+		aria-label={submitLabel ?? translator.translate('form.submit')}
+	>
 		<i class="fa-solid fa-key"></i>
-		<span>{translator.translate('form.submit')}</span>
+		<span>{submitLabel ?? translator.translate('form.submit')}</span>
 	</button>
 </div>
 
@@ -41,7 +59,7 @@
 {/if}
 
 <style>
-	button#code-scan {
+	button.qr-input-scan {
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 	}
@@ -50,7 +68,7 @@
 		border-radius: 0;
 	}
 
-	button#code-submit {
+	button.qr-input-submit {
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 	}

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { onNavigate } from '$app/navigation';
+	import { page } from '$app/state';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
 	import { translator } from '$lib/translator/index.svelte';
 	import { resolve } from '$app/paths';
+	import TreasureHuntSteps from '$lib/components/TreasureHuntSteps.svelte';
 	import {
 		initializeTreasureHuntState,
 		treasureHunt,
@@ -12,6 +15,7 @@
 	} from '$lib/state/treasure-hunt.svelte';
 
 	let { children } = $props();
+	const isTreasureHuntStep = $derived(page.route.id === '/treasure-hunt/[treasureHunt]/[step]');
 	const treasureHunts = Object.entries(
 		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {
 			eager: true,
@@ -22,9 +26,32 @@
 		.map(([, hunt]) => hunt);
 
 	onMount(() => initializeTreasureHuntState(treasureHunts));
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+
+		return new Promise<void>((resolveTransition) => {
+			try {
+				const transition = document.startViewTransition(() => {
+					resolveTransition();
+					return navigation.complete;
+				});
+
+				void transition.ready.catch(resolveTransition);
+				void transition.finished.catch(() => {});
+			} catch {
+				resolveTransition();
+			}
+		});
+	});
+
+	$effect(() => {
+		document.documentElement.lang = translator.locale;
+	});
 </script>
 
 <svelte:head>
+	<title>{translator.translate('app.title')}</title>
 	<link rel="icon" href={favicon} />
 	<link
 		rel="stylesheet"
@@ -41,10 +68,10 @@
 			id="title"
 			class="btn btn-ghost h-full text-xl"
 			href={resolve('/')}
-			aria-label={translator.translate('title')}
+			aria-label={translator.translate('app.title')}
 		>
 			<i class="fa-solid fa-map"></i>
-			<span>{translator.translate('title')}</span>
+			<span>{translator.translate('app.title')}</span>
 		</a>
 		<ul>
 			<li class="sm:hidden">
@@ -54,7 +81,9 @@
 				</a>
 			</li>
 			<li>
-				{#if treasureHunt.active}
+				{#if treasureHunt.active && isTreasureHuntStep}
+					<TreasureHuntSteps />
+				{:else if treasureHunt.active}
 					<a
 						href={resolve('/treasure-hunt/[treasureHunt]', {
 							treasureHunt: treasureHunt.active.id
@@ -67,7 +96,7 @@
 				{:else}
 					<button class="btn btn-ghost btn-menu" disabled>
 						<i class="fa-regular fa-map"></i>
-						<span>{translator.translate('title')}</span>
+						<span>{translator.translate('app.title')}</span>
 					</button>
 				{/if}
 			</li>
@@ -86,23 +115,20 @@
 		{@render children()}
 	</section>
 
-	<footer class="flex w-full justify-between text-xs text-neutral-500">
-		<span class="grow text-center">Copyright © 2026 Henahax</span>
+	<footer class="text-subtle flex w-full justify-between text-xs">
+		<span class="grow text-center">
+			{translator.translate('footer.copyright', { year: new Date().getFullYear() })}
+		</span>
 		<a href="https://github.henahax.net/treasure-hunt" class="">
 			<i class="fa-brands fa-github"></i>
-			<span>Source</span>
+			<span>{translator.translate('footer.source')}</span>
 		</a>
 	</footer>
 </main>
 
 <style>
-	:root {
-		--menu-border: var(--color-neutral-500);
-	}
-
 	:global(body) {
 		min-height: 100dvh;
-		height: 100dvh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -111,10 +137,12 @@
 	header {
 		position: sticky;
 		top: 0;
+		z-index: 10;
 		width: 100%;
+		background-color: var(--app-color-page);
 
 		border-top: none;
-		border-bottom: 1px solid var(--menu-border);
+		border-bottom: 1px solid var(--app-color-border-strong);
 	}
 
 	header nav ul {
@@ -122,22 +150,18 @@
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
-	header .btn-menu {
+	:global(header .btn-menu) {
 		gap: 0.125rem;
 		flex-direction: column;
 		width: 100%;
 	}
 
-	header .btn-menu i {
+	:global(header .btn-menu i) {
 		font-size: 1.25rem;
 	}
 
-	header .btn-menu span {
+	:global(header .btn-menu span) {
 		font-size: 0.75rem;
-	}
-
-	main {
-		overflow-y: auto;
 	}
 
 	@media (width < 40rem) {
@@ -151,7 +175,7 @@
 			bottom: 0;
 
 			border-bottom: none;
-			border-top: 1px solid var(--menu-border);
+			border-top: 1px solid var(--app-color-border-strong);
 		}
 
 		header #title {

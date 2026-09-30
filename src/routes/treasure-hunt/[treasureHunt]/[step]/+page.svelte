@@ -2,6 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { marked } from 'marked';
+	import sanitizeHtml from 'sanitize-html';
+	import QRInput from '$lib/components/QRInput.svelte';
 	import {
 		completeTreasureHuntStep,
 		getNextTreasureHuntStep,
@@ -11,6 +13,7 @@
 		treasureHunt
 	} from '$lib/state/treasure-hunt.svelte';
 	import type { TreasureHunt } from '$lib/state/treasure-hunt.svelte';
+	import { translator } from '$lib/translator/index.svelte';
 
 	import type { PageProps } from './$types';
 	let { params }: PageProps = $props();
@@ -45,6 +48,11 @@
 	let currentTime = $state(Date.now());
 	const timeAvailable = $derived(
 		selectedStep?.type !== 'time' || currentTime >= selectedStep.time * 1000
+	);
+	const remainingSeconds = $derived(
+		selectedStep?.type === 'time'
+			? Math.max(0, Math.ceil((selectedStep.time * 1000 - currentTime) / 1000))
+			: 0
 	);
 
 	let passwordInput = $state('');
@@ -100,12 +108,25 @@
 		}
 	}
 
+	function formatCountdown(totalSeconds: number) {
+		const days = Math.floor(totalSeconds / 86_400);
+		const hours = Math.floor((totalSeconds % 86_400) / 3_600);
+		const minutes = Math.floor((totalSeconds % 3_600) / 60);
+		const seconds = totalSeconds % 60;
+		const clock = [hours, minutes, seconds].map((unit) => String(unit).padStart(2, '0')).join(':');
+
+		if (days === 0) return clock;
+
+		const dayLabel = translator.translate(days === 1 ? 'steps.day' : 'steps.days');
+		return `${days} ${dayLabel} ${clock}`;
+	}
+
 	function submitPassword(event: SubmitEvent) {
 		event.preventDefault();
 		if (selectedStep?.type !== 'password') return;
 
 		if (passwordInput.trim() !== selectedStep.password) {
-			stepMessage = 'Das Passwort ist nicht korrekt.';
+			stepMessage = translator.translate('messages.passwordIncorrect');
 			return;
 		}
 
@@ -117,12 +138,12 @@
 	function checkLocation() {
 		if (selectedStep?.type !== 'location') return;
 		if (!navigator.geolocation) {
-			stepMessage = 'Die Standortbestimmung wird von diesem Browser nicht unterstützt.';
+			stepMessage = translator.translate('messages.locationUnsupported');
 			return;
 		}
 
 		const expectedLocation = selectedStep.location;
-		stepMessage = 'Standort wird geprüft ...';
+		stepMessage = translator.translate('messages.locationChecking');
 		navigator.geolocation.getCurrentPosition(
 			({ coords }) => {
 				const earthRadius = 6_371_000;
@@ -145,11 +166,13 @@
 					stepMessage = '';
 					continueToNextStep();
 				} else {
-					stepMessage = `Du bist noch etwa ${Math.round(distance)} m vom Ziel entfernt.`;
+					stepMessage = translator.translate('messages.locationDistance', {
+						distance: Math.round(distance)
+					});
 				}
 			},
 			() => {
-				stepMessage = 'Dein Standort konnte nicht ermittelt werden.';
+				stepMessage = translator.translate('messages.locationFailed');
 			},
 			{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
 		);
@@ -194,10 +217,12 @@
 			return null;
 		}
 	}
+
+	/* eslint-disable svelte/no-at-html-tags, svelte/no-navigation-without-resolve -- Markdown is sanitized and content links are external URLs. */
 </script>
 
 {#if !treasureHunt.progressLoaded}
-	<p>Fortschritt wird geladen ...</p>
+	<p>{translator.translate('steps.progressLoading')}</p>
 {:else if selectedTreasureHunt && selectedStep && isStepUnlocked(selectedTreasureHunt, selectedStep.id)}
 	<div class="flex flex-col gap-4">
 		<div class="flex items-center justify-between gap-4 text-sm">
@@ -213,24 +238,43 @@
 
 		<h1 class="text-2xl font-bold">{selectedStep.title}</h1>
 
-		{#if selectedStep.type === 'time' && !timeAvailable}
-			<p>
-				Dieser Schritt wird freigeschaltet am
-				<time datetime={new Date(selectedStep.time * 1000).toISOString()}>
-					{new Date(selectedStep.time * 1000).toLocaleString()}
-				</time>
-				.
-			</p>
-		{:else}
+		{#if selectedStep.type === 'time'}
+			{#if timeAvailable}
+				<p role="status">{translator.translate('steps.timeUnlocked')}</p>
+			{:else}
+				<div class="time-gate">
+					<p class="time-caption">{translator.translate('steps.countdown')}</p>
+					<p class="countdown" role="timer" aria-live="off">
+						{formatCountdown(remainingSeconds)}
+					</p>
+					<p class="release-date">
+						{translator.translate('steps.releaseAt')}
+						<time datetime={new Date(selectedStep.time * 1000).toISOString()}>
+							{new Date(selectedStep.time * 1000).toLocaleString(translator.locale, {
+								dateStyle: 'long',
+								timeStyle: 'short'
+							})}
+						</time>
+					</p>
+				</div>
+			{/if}
+		{/if}
+
+		{#if selectedStep.type !== 'time' || timeAvailable}
 			{#each selectedStep.content as content}
 				{#if content.type === 'text' && content.text}
-					<div class="prose max-w-none prose-invert">
-						{@html marked.parse(content.text)}
+					<div class="prose max-w-none">
+						{@html sanitizeHtml(marked.parse(content.text, { async: false }))}
 					</div>
 				{:else if content.type === 'link' && content.url}
-					<a href={content.url} target="_blank" rel="noreferrer" class="btn btn-neutral w-fit">
+					<a
+						href={content.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn btn-neutral w-fit"
+					>
 						<i class="fa-solid fa-arrow-up-right-from-square"></i>
-						<span>Link öffnen</span>
+						<span>{translator.translate('actions.openLink')}</span>
 					</a>
 				{:else if content.type === 'image' && content.url}
 					<img
@@ -254,20 +298,32 @@
 		{/if}
 
 		{#if allStepsCompleted && selectedStep.id === selectedTreasureHunt.steps.at(-1)?.id}
-			<p role="status">Jagd abgeschlossen!</p>
+			<p role="status">{translator.translate('messages.huntCompleted')}</p>
 		{:else if selectedStep.type === 'password' && !stepCompleted}
 			<form class="flex flex-wrap items-end gap-2" onsubmit={submitPassword}>
-				<label class="flex flex-col gap-1">
-					<span>Passwort</span>
-					<input class="input input-bordered" type="password" bind:value={passwordInput} required />
-				</label>
-				<button type="submit" class="btn btn-primary">Prüfen</button>
+				<QRInput
+					bind:value={passwordInput}
+					inputLabel={translator.translate('form.passwordCodeLabel')}
+					placeholder={translator.translate('form.passwordCodePlaceholder')}
+					submitLabel={translator.translate('form.verifyPassword')}
+					required
+				/>
 			</form>
 		{:else if selectedStep.type === 'location' && !stepCompleted}
-			<button class="btn btn-primary w-fit" onclick={checkLocation}>Standort prüfen</button>
+			<button class="btn btn-primary w-fit" onclick={checkLocation}>
+				{translator.translate('form.checkLocation')}
+			</button>
+		{:else if selectedStep.type === 'time'}
+			<button class="btn btn-primary w-fit" disabled={!timeAvailable} onclick={continueToNextStep}>
+				{translator.translate(
+					stepNumber === selectedTreasureHunt.steps.length - 1 ? 'steps.finish' : 'steps.next'
+				)}
+			</button>
 		{:else if timeAvailable}
 			<button class="btn btn-primary w-fit" onclick={continueToNextStep}>
-				{stepNumber === selectedTreasureHunt.steps.length - 1 ? 'Jagd abschließen' : 'Weiter'}
+				{translator.translate(
+					stepNumber === selectedTreasureHunt.steps.length - 1 ? 'steps.finish' : 'steps.next'
+				)}
 			</button>
 		{/if}
 
@@ -276,17 +332,17 @@
 		{/if}
 	</div>
 {:else if selectedTreasureHunt && selectedStep}
-	<p>Dieser Schritt ist noch gesperrt. Du wirst zum nächsten offenen Schritt weitergeleitet.</p>
+	<p>{translator.translate('steps.locked')}</p>
 {:else}
 	<div class="flex flex-col gap-4">
-		<p>Der Step wurde nicht gefunden.</p>
+		<p>{translator.translate('steps.notFound')}</p>
 		{#if selectedTreasureHunt}
 			<a
 				href={resolve('/treasure-hunt/[treasureHunt]', {
 					treasureHunt: selectedTreasureHunt.id
 				})}
 			>
-				Zur Jagd
+				{translator.translate('hunt.back')}
 			</a>
 		{/if}
 	</div>

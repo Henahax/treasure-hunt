@@ -4,7 +4,7 @@
 	"title": "Treasure Hunt",
 	"type": "object",
 	"additionalProperties": false,
-	"required": ["id", "name", "description", "steps"],
+	"required": ["id", "name", "description", "public", "steps"],
 	"properties": {
 		"id": {
 			"$ref": "#/$defs/id",
@@ -18,6 +18,10 @@
 		"description": {
 			"type": "string",
 			"description": "Description of the treasure hunt. May contain Markdown."
+		},
+		"public": {
+			"type": "boolean",
+			"description": "Whether this treasure hunt appears in the public catalog."
 		},
 		"picture": {
 			"type": "string",

@@ -13,7 +13,10 @@
 
 	function resetActiveTreasureHunt() {
 		const activeHunt = treasureHunt.active;
-		if (!activeHunt || !window.confirm(`Fortschritt für "${activeHunt.name}" zurücksetzen?`)) {
+		if (
+			!activeHunt ||
+			!window.confirm(translator.translate('hunt.resetConfirm', { name: activeHunt.name }))
+		) {
 			return;
 		}
 
@@ -25,9 +28,9 @@
 	<button
 		class="btn btn-neutral w-fit"
 		onclick={resetActiveTreasureHunt}
-		title={translator.translate('treasure-hunt.reset')}
+		title={translator.translate('hunt.reset')}
 	>
 		<i class="fa-solid fa-rotate-left"></i>
-		<span class="max-sm:hidden">{translator.translate('treasure-hunt.reset')}</span>
+		<span class="max-sm:hidden">{translator.translate('hunt.reset')}</span>
 	</button>
 {/if}
