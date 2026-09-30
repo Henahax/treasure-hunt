@@ -37,6 +37,7 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
-		"marked": "^18.0.14"
+		"marked": "^18.0.14",
+		"qr-scanner": "^1.4.2"
 	}
 }
