@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import TreasureHuntActive from '$lib/components/TreasureHuntActive.svelte';
-	import type { TreasureHunt } from '$lib/state/treasure-hunt.svelte';
-	import { translator } from '$lib/translator/index.svelte';
+	import TreasureHuntActive from '#lib/components/TreasureHuntActive.svelte';
+	import type { TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { translator } from '#lib/translator/index.svelte.js';
 
 	const treasureHunts = Object.entries(
 		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {

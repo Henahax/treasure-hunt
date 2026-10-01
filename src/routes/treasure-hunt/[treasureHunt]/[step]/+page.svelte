@@ -3,7 +3,7 @@
 	import { resolve } from '$app/paths';
 	import { marked } from 'marked';
 	import sanitizeHtml from 'sanitize-html';
-	import QRInput from '$lib/components/QRInput.svelte';
+	import QRInput from '#lib/components/QRInput.svelte';
 	import {
 		completeTreasureHuntStep,
 		getNextTreasureHuntStep,
@@ -11,9 +11,9 @@
 		isStepUnlocked,
 		setActiveTreasureHunt,
 		treasureHunt
-	} from '$lib/state/treasure-hunt.svelte';
-	import type { TreasureHunt } from '$lib/state/treasure-hunt.svelte';
-	import { translator } from '$lib/translator/index.svelte';
+	} from '#lib/state/treasure-hunt.svelte.js';
+	import type { TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { translator } from '#lib/translator/index.svelte.js';
 
 	import type { PageProps } from './$types';
 	let { params }: PageProps = $props();

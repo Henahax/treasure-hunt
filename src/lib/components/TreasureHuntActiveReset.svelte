@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { translator } from '$lib/translator/index.svelte';
+	import { translator } from '#lib/translator/index.svelte.js';
 	import {
 		isStepCompleted,
 		resetTreasureHuntProgress,
 		treasureHunt
-	} from '$lib/state/treasure-hunt.svelte';
+	} from '#lib/state/treasure-hunt.svelte.js';
 
 	const hasProgress = $derived(
 		treasureHunt.active?.steps.some((step) => isStepCompleted(treasureHunt.active!, step.id)) ??

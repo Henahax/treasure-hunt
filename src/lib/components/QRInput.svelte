@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { translator } from '$lib/translator/index.svelte';
-	import QRScanner from '$lib/components/QRScanner.svelte';
+	import { translator } from '#lib/translator/index.svelte.js';
+	import QRScanner from '#lib/components/QRScanner.svelte';
 
 	let {
 		value = $bindable(''),

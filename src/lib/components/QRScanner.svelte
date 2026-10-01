@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import QrScanner from 'qr-scanner';
 	import qrScannerWorkerPath from 'qr-scanner/qr-scanner-worker.min.js?url';
-	import { translator } from '$lib/translator/index.svelte';
+	import { translator } from '#lib/translator/index.svelte.js';
 
 	let {
 		onresult,

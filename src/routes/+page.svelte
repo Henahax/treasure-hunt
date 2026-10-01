@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { translator } from '$lib/translator/index.svelte';
+	import { translator } from '#lib/translator/index.svelte.js';
 	import { resolve } from '$app/paths';
-	import { setActiveTreasureHunt, type TreasureHunt } from '$lib/state/treasure-hunt.svelte';
+	import { setActiveTreasureHunt, type TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
 
-	import QRInput from '$lib/components/QRInput.svelte';
+	import QRInput from '#lib/components/QRInput.svelte';
 
-	import TreasureHuntActive from '$lib/components/TreasureHuntActive.svelte';
+	import TreasureHuntActive from '#lib/components/TreasureHuntActive.svelte';
 
 	const treasureHunts = Object.entries(
 		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {
@@ -48,7 +48,7 @@
 		{#if codeError}<p class="text-error" role="status">{codeError}</p>{/if}
 	</form>
 
-	<a href={resolve('/treasure-hunts')} class="btn btn-primary h-16 text-lg font-bold">
+	<a href={resolve('treasure-hunts')} class="btn btn-primary h-16 text-lg font-bold">
 		<i class="fa-regular fa-compass"></i>
 		<span>{translator.translate('catalog.title')}</span>
 	</a>

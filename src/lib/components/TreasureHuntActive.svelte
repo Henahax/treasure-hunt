@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { treasureHunt } from '$lib/state/treasure-hunt.svelte';
-	import { translator } from '$lib/translator/index.svelte';
+	import { treasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { translator } from '#lib/translator/index.svelte.js';
 
-	import TreasureHuntActiveContinue from '$lib/components/TreasureHuntActiveContinue.svelte';
-	import TreasureHuntActiveReset from '$lib/components/TreasureHuntActiveReset.svelte';
+	import TreasureHuntActiveContinue from '#lib/components/TreasureHuntActiveContinue.svelte';
+	import TreasureHuntActiveReset from '#lib/components/TreasureHuntActiveReset.svelte';
 </script>
 
 {#if treasureHunt.active}

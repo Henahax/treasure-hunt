@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { isStepCompleted, isStepUnlocked, treasureHunt } from '$lib/state/treasure-hunt.svelte';
-	import { translator } from '$lib/translator/index.svelte';
+	import {
+		isStepCompleted,
+		isStepUnlocked,
+		treasureHunt
+	} from '#lib/state/treasure-hunt.svelte.js';
+	import { translator } from '#lib/translator/index.svelte.js';
 
 	const activeHunt = $derived(treasureHunt.active);
 	const unlockedSteps = $derived.by(() => {

@@ -6,10 +6,10 @@
 		isStepCompleted,
 		setActiveTreasureHunt,
 		treasureHunt
-	} from '$lib/state/treasure-hunt.svelte';
-	import ResetActiveTreasureHunt from '$lib/components/TreasureHuntActiveReset.svelte';
-	import type { TreasureHunt } from '$lib/state/treasure-hunt.svelte';
-	import { translator } from '$lib/translator/index.svelte';
+	} from '#lib/state/treasure-hunt.svelte.js';
+	import ResetActiveTreasureHunt from '#lib/components/TreasureHuntActiveReset.svelte';
+	import type { TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { translator } from '#lib/translator/index.svelte.js';
 
 	import type { PageProps } from './$types';
 	let { params }: PageProps = $props();

@@ -21,6 +21,15 @@ Web fallback: `https://github.com/henahax/agents`
 Relevant skills:
 
 - `languages/typescript`
+- `languages/css`
 - `frameworks/svelte`
+- `frameworks/sveltekit`
+- `tools/docker`
+- `tools/docker-compose`
 
 Use the shared skills where applicable. Keep project-specific instructions in this file.
+
+## Current Stack
+
+- SvelteKit 3 with Svelte 5; check `package.json` for the installed version ranges.
+- Run `npm run check` to validate Svelte and TypeScript changes.

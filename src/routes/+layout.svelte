@@ -3,16 +3,16 @@
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '#lib/assets/favicon.svg';
 
-	import { translator } from '$lib/translator/index.svelte';
+	import { translator } from '#lib/translator/index.svelte.js';
 	import { resolve } from '$app/paths';
-	import TreasureHuntSteps from '$lib/components/TreasureHuntSteps.svelte';
+	import TreasureHuntSteps from '#lib/components/TreasureHuntSteps.svelte';
 	import {
 		initializeTreasureHuntState,
 		treasureHunt,
 		type TreasureHunt
-	} from '$lib/state/treasure-hunt.svelte';
+	} from '#lib/state/treasure-hunt.svelte.js';
 
 	let { children } = $props();
 	const isTreasureHuntStep = $derived(page.route.id === '/treasure-hunt/[treasureHunt]/[step]');
@@ -28,6 +28,7 @@
 	onMount(() => initializeTreasureHuntState(treasureHunts));
 
 	onNavigate((navigation) => {
+		if (navigation.shallow) return;
 		if (!document.startViewTransition) return;
 
 		return new Promise<void>((resolveTransition) => {
@@ -101,7 +102,7 @@
 				{/if}
 			</li>
 			<li>
-				<a href={resolve('/treasure-hunts')} class="btn btn-ghost btn-menu">
+				<a href={resolve('treasure-hunts')} class="btn btn-ghost btn-menu">
 					<i class="fa-regular fa-compass"></i>
 					<span>{translator.translate('nav.browse')}</span>
 				</a>

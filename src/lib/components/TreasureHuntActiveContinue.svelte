@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { translator } from '$lib/translator/index.svelte';
-	import { treasureHunt } from '$lib/state/treasure-hunt.svelte';
+	import { translator } from '#lib/translator/index.svelte.js';
+	import { treasureHunt } from '#lib/state/treasure-hunt.svelte.js';
 </script>
 
 {#if treasureHunt.active}
