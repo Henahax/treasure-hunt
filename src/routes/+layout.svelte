@@ -104,7 +104,7 @@
 			<li>
 				<a href={resolve('treasure-hunts')} class="btn btn-ghost btn-menu">
 					<i class="fa-regular fa-compass"></i>
-					<span>{translator.translate('nav.browse')}</span>
+					<span>{translator.translate('nav.explore')}</span>
 				</a>
 			</li>
 		</ul>

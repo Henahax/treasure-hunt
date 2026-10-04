@@ -14,8 +14,12 @@ const translations = {
 			en: 'Home'
 		},
 		browse: {
-			de: 'Entdecken',
+			de: 'Durchsuchen',
 			en: 'Browse'
+		},
+		explore: {
+			de: 'Entdecken',
+			en: 'Explore'
 		},
 		continue: {
 			de: 'Fortsetzen',
@@ -226,10 +230,10 @@ const translations = {
 
 type TranslationPaths<T> = {
 	[Key in keyof T & string]: T[Key] extends Record<Locale, string>
-		? Key
-		: T[Key] extends object
-			? `${Key}.${TranslationPaths<T[Key]>}`
-			: never;
+	? Key
+	: T[Key] extends object
+	? `${Key}.${TranslationPaths<T[Key]>}`
+	: never;
 }[keyof T & string];
 
 type TranslationKey = TranslationPaths<typeof translations>;

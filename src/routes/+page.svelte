@@ -37,7 +37,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-6">
 	<h1 class="text-4xl font-bold">{translator.translate('app.title')}</h1>
 
 	<TreasureHuntActive />
@@ -48,8 +48,11 @@
 		{#if codeError}<p class="text-error" role="status">{codeError}</p>{/if}
 	</form>
 
-	<a href={resolve('treasure-hunts')} class="btn btn-primary h-16 text-lg font-bold">
-		<i class="fa-regular fa-compass"></i>
-		<span>{translator.translate('catalog.title')}</span>
-	</a>
+	<label for="explore" class="flex flex-col gap-2">
+		<span class="text-xs opacity-75">{translator.translate('nav.explore')}</span>
+		<a href={resolve('treasure-hunts')} id="explore" class="btn btn-primary h-16 text-lg font-bold">
+			<i class="fa-regular fa-compass"></i>
+			<span>{translator.translate('nav.browse')}</span>
+		</a>
+	</label>
 </div>

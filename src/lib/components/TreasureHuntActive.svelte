@@ -9,7 +9,7 @@
 {#if treasureHunt.active}
 	<label class="flex flex-col gap-2">
 		<span class="text-xs opacity-75">
-			{translator.translate('hunt.active')}:
+			{translator.translate('hunt.active')}
 		</span>
 		<div class="flex gap-2">
 			<TreasureHuntActiveContinue />
