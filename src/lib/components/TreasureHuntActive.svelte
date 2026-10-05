@@ -13,7 +13,7 @@
 		</span>
 		<div class="flex gap-2">
 			<TreasureHuntActiveContinue />
-			<TreasureHuntActiveReset />
+			<TreasureHuntActiveReset hunt={treasureHunt.active} />
 		</div>
 	</label>
 {/if}

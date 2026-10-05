@@ -174,6 +174,7 @@
 	.step-link:hover,
 	.step-link:focus-visible {
 		background: var(--app-color-surface);
+		border-radius: 0.5rem;
 	}
 
 	.step-link:focus-visible {
@@ -219,8 +220,9 @@
 
 	@media (max-width: 40rem) {
 		.steps-dialog {
-			inset: auto 0 0;
-			width: 100vw;
+			inset: auto 0 0 0;
+			width: 100%;
+			max-width: none;
 			height: auto;
 			max-height: min(75dvh, calc(100% - 1rem));
 			padding: 1.25rem 1rem max(1rem, env(safe-area-inset-bottom));

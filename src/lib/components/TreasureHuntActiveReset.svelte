@@ -5,26 +5,22 @@
 		resetTreasureHuntProgress,
 		treasureHunt
 	} from '#lib/state/treasure-hunt.svelte.js';
+	import type { TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
 
-	const hasProgress = $derived(
-		treasureHunt.active?.steps.some((step) => isStepCompleted(treasureHunt.active!, step.id)) ??
-			false
-	);
+	let { hunt }: { hunt: TreasureHunt } = $props();
+	const hasProgress = $derived(hunt.steps.some((step) => isStepCompleted(hunt, step.id)));
+	const canReset = $derived(hasProgress || treasureHunt.active?.id === hunt.id);
 
 	function resetActiveTreasureHunt() {
-		const activeHunt = treasureHunt.active;
-		if (
-			!activeHunt ||
-			!window.confirm(translator.translate('hunt.resetConfirm', { name: activeHunt.name }))
-		) {
+		if (!window.confirm(translator.translate('hunt.resetConfirm', { name: hunt.name }))) {
 			return;
 		}
 
-		resetTreasureHuntProgress(activeHunt);
+		resetTreasureHuntProgress(hunt);
 	}
 </script>
 
-{#if treasureHunt.active && hasProgress}
+{#if canReset}
 	<button
 		class="btn btn-neutral w-fit"
 		onclick={resetActiveTreasureHunt}

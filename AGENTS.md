@@ -20,6 +20,7 @@ Web fallback: `https://github.com/henahax/agents`
 
 Relevant skills:
 
+- `core/token-efficiency`
 - `languages/typescript`
 - `languages/css`
 - `frameworks/svelte`
@@ -32,4 +33,3 @@ Use the shared skills where applicable. Keep project-specific instructions in th
 ## Current Stack
 
 - SvelteKit 3 with Svelte 5; check `package.json` for the installed version ranges.
-- Run `npm run check` to validate Svelte and TypeScript changes.

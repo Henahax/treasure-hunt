@@ -73,7 +73,7 @@
 					)}
 				</span>
 			</button>
-			<ResetActiveTreasureHunt />
+			<ResetActiveTreasureHunt hunt={selectedTreasureHunt} />
 		</div>
 	</div>
 {:else}
