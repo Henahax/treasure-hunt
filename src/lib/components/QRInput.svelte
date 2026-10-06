@@ -18,7 +18,7 @@
 	let isScanning = $state(false);
 </script>
 
-<div class="flex">
+<div class="flex w-full">
 	<button
 		type="button"
 		class="qr-input-scan btn btn-neutral"
@@ -26,14 +26,14 @@
 		onclick={() => (isScanning = true)}
 	>
 		<i class="fa-solid fa-qrcode"></i>
-		<span class="max-md:hidden">{translator.translate('form.scan')}</span>
+		<span class="max-sm:hidden">{translator.translate('form.scan')}</span>
 	</button>
 
 	<input
 		bind:value
 		type="text"
 		aria-label={inputLabel ?? translator.translate('form.codeLabel')}
-		placeholder={placeholder ?? translator.translate('form.codePlaceholder')}
+		{placeholder}
 		{required}
 		class="w-full"
 	/>

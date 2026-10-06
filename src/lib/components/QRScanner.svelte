@@ -70,7 +70,7 @@
 		<h2 id="scanner-title">{translator.translate('scanner.title')}</h2>
 		<button
 			type="button"
-			class="btn btn-neutral"
+			class="btn btn-neutral btn-icon btn-circle"
 			aria-label={translator.translate('scanner.close')}
 			title={translator.translate('scanner.close')}
 			onclick={close}

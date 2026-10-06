@@ -17,10 +17,6 @@ const translations = {
 			de: 'Durchsuchen',
 			en: 'Browse'
 		},
-		explore: {
-			de: 'Entdecken',
-			en: 'Explore'
-		},
 		continue: {
 			de: 'Fortsetzen',
 			en: 'Continue'
@@ -155,17 +151,9 @@ const translations = {
 			de: 'Schnitzeljagd-Code',
 			en: 'Treasure hunt code'
 		},
-		codePlaceholder: {
-			de: 'Code scannen oder eingeben',
-			en: 'Enter a code or scan a QR code'
-		},
-		passwordCodeLabel: {
-			de: 'Passwort oder QR-Code',
-			en: 'Password or QR code'
-		},
-		passwordCodePlaceholder: {
-			de: 'Passwort eingeben oder QR-Code scannen',
-			en: 'Enter a password or scan a QR code'
+		passwordCode: {
+			de: 'QR-Code oder Passwort',
+			en: 'QR code or password'
 		},
 		submit: {
 			de: 'Absenden',

@@ -55,7 +55,7 @@
 			</div>
 			<button
 				type="button"
-				class="btn btn-neutral btn-icon"
+				class="btn btn-neutral btn-icon btn-circle"
 				aria-label={translator.translate('steps.close')}
 				title={translator.translate('steps.close')}
 				onclick={close}
@@ -64,7 +64,7 @@
 			</button>
 		</div>
 
-		<div class="step-list">
+		<div class="step-list divide-y divide-[var(--app-color-surface)]">
 			{#each unlockedSteps as { step, index, completed } (step.id)}
 				<a
 					href={resolve('/treasure-hunt/[treasureHunt]/[step]', {
@@ -166,7 +166,6 @@
 		align-items: center;
 		gap: 0.75rem;
 		padding: 0.75rem 0.25rem;
-		border-bottom: 1px solid var(--app-color-surface);
 		color: inherit;
 		text-decoration: none;
 	}

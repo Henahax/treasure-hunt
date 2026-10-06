@@ -48,11 +48,8 @@
 		{#if codeError}<p class="text-error" role="status">{codeError}</p>{/if}
 	</form>
 
-	<label for="explore" class="flex flex-col gap-2">
-		<span class="text-xs opacity-75">{translator.translate('nav.explore')}</span>
-		<a href={resolve('treasure-hunts')} id="explore" class="btn btn-primary h-16 text-lg font-bold">
-			<i class="fa-regular fa-compass"></i>
-			<span>{translator.translate('nav.browse')}</span>
-		</a>
-	</label>
+	<a href={resolve('treasure-hunts')} class="btn btn-primary h-16 text-lg font-bold">
+		<i class="fa-regular fa-compass"></i>
+		<span>{translator.translate('nav.browse')}</span>
+	</a>
 </div>

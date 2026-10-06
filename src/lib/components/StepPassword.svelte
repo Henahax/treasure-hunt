@@ -23,8 +23,8 @@
 <form class="flex flex-wrap items-end gap-2" onsubmit={submitPassword}>
 	<QRInput
 		bind:value={passwordInput}
-		inputLabel={translator.translate('form.passwordCodeLabel')}
-		placeholder={translator.translate('form.passwordCodePlaceholder')}
+		inputLabel={translator.translate('form.passwordCode')}
+		placeholder={translator.translate('form.passwordCode')}
 		submitLabel={translator.translate('form.verifyPassword')}
 		required
 	/>
