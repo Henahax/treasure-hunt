@@ -211,6 +211,7 @@
 
 	.step-arrow {
 		color: var(--app-color-text-muted);
+		width: 2.25rem;
 	}
 
 	.empty-state {

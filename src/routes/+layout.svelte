@@ -116,14 +116,10 @@
 		{@render children()}
 	</section>
 
-	<footer class="text-subtle flex w-full justify-between text-xs">
+	<footer class="text-subtle flex w-full justify-center text-xs">
 		<span class="grow text-center">
 			{translator.translate('footer.copyright', { year: new Date().getFullYear() })}
 		</span>
-		<a href="https://github.henahax.net/treasure-hunt" class="">
-			<i class="fa-brands fa-github"></i>
-			<span>{translator.translate('footer.source')}</span>
-		</a>
 	</footer>
 </main>
 

@@ -1,0 +1,31 @@
+{
+	"id": "timer-soon",
+	"name": "Timer Bald Test",
+	"description": "Ein Timer-Test für bald.",
+	"public": true,
+	"steps": [
+		{
+			"id": "timer",
+			"title": "Timer Bald",
+			"type": "time",
+			"time": 1791302400,
+			"content": [
+				{
+					"type": "text",
+					"text": "Der Timer ist abgelaufen. Du kannst fortfahren."
+				}
+			]
+		},
+		{
+			"id": "timer-fertig",
+			"title": "Timer Test erfolgreich!",
+			"type": "text",
+			"content": [
+				{
+					"type": "text",
+					"text": "Timer Test erfolgreich!"
+				}
+			]
+		}
+	]
+}

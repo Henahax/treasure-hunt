@@ -43,8 +43,8 @@
 		class="qr-input-submit btn btn-primary"
 		aria-label={submitLabel ?? translator.translate('form.submit')}
 	>
-		<i class="fa-solid fa-key"></i>
-		<span>{submitLabel ?? translator.translate('form.submit')}</span>
+		<i class="fa-solid fa-check"></i>
+		<span class="max-sm:hidden">{submitLabel ?? translator.translate('form.submit')}</span>
 	</button>
 </div>
 

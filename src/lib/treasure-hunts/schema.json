@@ -269,6 +269,10 @@
 				"url": {
 					"type": "string",
 					"format": "uri"
+				},
+				"text": {
+					"type": "string",
+					"description": "Optional label displayed on the link button."
 				}
 			}
 		}
