@@ -25,13 +25,19 @@
 			href={resolve('/treasure-hunt/[treasureHunt]', { treasureHunt: treasureHunt.id })}
 			class="col-span-full grid grid-cols-subgrid p-2"
 		>
-			<div>{treasureHunt.name}</div>
+			<div class="text-lg font-semibold">{treasureHunt.name}</div>
 			<div class="text-xs">
 				{translator.translate('catalog.stepsCount', { count: treasureHunt.steps.length })}
 			</div>
-			<div class="col-span-full text-sm">
+			<div class="text-muted col-span-full text-sm">
 				{treasureHunt.description}
 			</div>
 		</a>
 	{/each}
 </div>
+
+<style>
+	a:hover {
+		background-color: var(--app-color-hover);
+	}
+</style>

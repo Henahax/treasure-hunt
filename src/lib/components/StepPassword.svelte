@@ -9,7 +9,7 @@
 	function submitPassword(event: SubmitEvent) {
 		event.preventDefault();
 
-		if (passwordInput.trim() !== password) {
+		if (passwordInput.trim().toLowerCase() !== password.toLowerCase()) {
 			stepMessage = translator.translate('messages.passwordIncorrect');
 			return;
 		}

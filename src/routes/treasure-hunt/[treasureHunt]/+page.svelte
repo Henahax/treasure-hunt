@@ -22,7 +22,7 @@
 		.filter(([path]) => !path.endsWith('/schema.json'))
 		.map(([, hunt]) => hunt);
 	const selectedTreasureHunt = $derived(
-		treasureHunts.find((hunt) => hunt.id === params.treasureHunt) ?? null
+		treasureHunts.find((hunt) => hunt.id === params.treasureHunt.toLowerCase()) ?? null
 	);
 	const firstStep = $derived(selectedTreasureHunt?.steps[0] ?? null);
 	const hasProgress = $derived(

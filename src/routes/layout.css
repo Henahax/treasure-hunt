@@ -39,6 +39,10 @@
 	}
 }
 
+.text-muted {
+	color: var(--app-color-text-muted);
+}
+
 .btn {
 	cursor: pointer;
 	padding: 0.5em 1em;

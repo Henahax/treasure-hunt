@@ -1,12 +1,12 @@
 {
-	"id": "knoedelplatz-20",
-	"name": "Knödelplatz 20m Radius Test",
+	"id": "location-20",
+	"name": "Standort 20m Radius",
 	"description": "Ein Standorttest mit 20m Radius.",
 	"public": true,
 	"picture": "https://www.eventfabrik-muenchen.de/wp-content/uploads/2024/11/knoedelplatz-impressum-3.jpg",
 	"steps": [
 		{
-			"id": "knoedelplatz-test",
+			"id": "location",
 			"title": "Knödelplatz Test",
 			"type": "location",
 			"location": {
@@ -31,7 +31,7 @@
 			]
 		},
 		{
-			"id": "knoedelplatz-fertig",
+			"id": "location-done",
 			"title": "Knödelplatz Test erfolgreich!",
 			"type": "text",
 			"content": [

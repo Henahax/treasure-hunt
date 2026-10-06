@@ -1,6 +1,6 @@
 {
 	"id": "timer-soon",
-	"name": "Timer Bald Test",
+	"name": "Test: Timer Bald",
 	"description": "Ein Timer-Test für bald.",
 	"public": true,
 	"steps": [
@@ -17,13 +17,13 @@
 			]
 		},
 		{
-			"id": "timer-fertig",
-			"title": "Timer Test erfolgreich!",
+			"id": "timer-done",
+			"title": "Test erfolgreich",
 			"type": "text",
 			"content": [
 				{
 					"type": "text",
-					"text": "Timer Test erfolgreich!"
+					"text": "Test: Timer erfolgreich!"
 				}
 			]
 		}

@@ -29,7 +29,7 @@
 		.map(([, hunt]) => hunt);
 
 	const selectedTreasureHunt = $derived(
-		treasureHunts.find((hunt) => hunt.id === params.treasureHunt) ?? null
+		treasureHunts.find((hunt) => hunt.id === params.treasureHunt.toLowerCase()) ?? null
 	);
 	const selectedStep = $derived(
 		selectedTreasureHunt?.steps.find((step) => step.id === params.step) ?? null
