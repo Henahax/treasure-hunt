@@ -4,15 +4,11 @@
 	let {
 		time,
 		timeAvailable,
-		remainingSeconds,
-		isLastStep,
-		onContinue
+		remainingSeconds
 	}: {
 		time: number;
 		timeAvailable: boolean;
 		remainingSeconds: number;
-		isLastStep: boolean;
-		onContinue: () => void;
 	} = $props();
 	const countdownText = $derived(formatCountdown(remainingSeconds));
 	const releaseDate = $derived(new Date(time * 1000));
@@ -55,10 +51,6 @@
 		</p>
 	</div>
 {/if}
-
-<button class="btn btn-primary w-fit" disabled={!timeAvailable} onclick={onContinue}>
-	{translator.translate(isLastStep ? 'steps.finish' : 'steps.next')}
-</button>
 
 <style>
 	.time-gate {

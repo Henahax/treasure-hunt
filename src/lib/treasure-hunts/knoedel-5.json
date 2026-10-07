@@ -1,6 +1,6 @@
 {
 	"id": "location-5",
-	"name": "Standort 5m Radius",
+	"name": "Test: Standort 5m Radius",
 	"description": "Ein Standorttest mit 5m Radius.",
 	"public": true,
 	"picture": "https://www.eventfabrik-muenchen.de/wp-content/uploads/2024/11/knoedelplatz-impressum-3.jpg",

@@ -126,13 +126,7 @@
 		<h1 class="text-2xl font-bold">{selectedStep.title}</h1>
 
 		{#if selectedStep.type === 'time'}
-			<StepTime
-				time={selectedStep.time}
-				{timeAvailable}
-				{remainingSeconds}
-				isLastStep={stepNumber === selectedTreasureHunt.steps.length - 1}
-				onContinue={continueToNextStep}
-			/>
+			<StepTime time={selectedStep.time} {timeAvailable} {remainingSeconds} />
 		{/if}
 
 		{#if selectedStep.type !== 'time' || timeAvailable}
@@ -145,8 +139,8 @@
 			<StepPassword password={selectedStep.password} onSuccess={continueToNextStep} />
 		{:else if selectedStep.type === 'location' && !stepCompleted}
 			<StepLocation location={selectedStep.location} onSuccess={continueToNextStep} />
-		{:else if selectedStep.type !== 'time' && timeAvailable}
-			<button class="btn btn-primary w-fit" onclick={continueToNextStep}>
+		{:else if selectedStep.type === 'time' || timeAvailable}
+			<button class="btn btn-primary w-fit" disabled={!timeAvailable} onclick={continueToNextStep}>
 				{translator.translate(
 					stepNumber === selectedTreasureHunt.steps.length - 1 ? 'steps.finish' : 'steps.next'
 				)}

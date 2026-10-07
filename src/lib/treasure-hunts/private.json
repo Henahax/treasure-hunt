@@ -1,0 +1,31 @@
+{
+	"id": "private",
+	"name": "Test: Private",
+	"description": "Private Schnitzeljagd Test.",
+	"public": false,
+	"steps": [
+		{
+			"id": "private",
+			"title": "Privat Test",
+			"type": "password",
+			"password": "private",
+			"content": [
+				{
+					"type": "text",
+					"text": "Gebe das als Passwort ein: **private**"
+				}
+			]
+		},
+		{
+			"id": "private-done",
+			"title": "Test: Privat erfolgreich!",
+			"type": "text",
+			"content": [
+				{
+					"type": "text",
+					"text": "Test: Privat erfolgreich!"
+				}
+			]
+		}
+	]
+}

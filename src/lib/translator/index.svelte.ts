@@ -42,12 +42,12 @@ const translations = {
 			en: 'Active Treasure Hunt'
 		},
 		start: {
-			de: 'Jagd starten',
-			en: 'Start hunt'
+			de: 'Schnitzeljagd starten',
+			en: 'Start treasure hunt'
 		},
 		continue: {
-			de: 'Jagd fortsetzen',
-			en: 'Continue hunt'
+			de: 'Schnitzeljagd fortsetzen',
+			en: 'Continue treasure hunt'
 		},
 		reset: {
 			de: 'Zurücksetzen',
@@ -62,8 +62,8 @@ const translations = {
 			en: 'This treasure hunt could not be found.'
 		},
 		back: {
-			de: 'Zur Jagd',
-			en: 'Back to hunt'
+			de: 'Zur Schnitzeljagd',
+			en: 'Back to treasure hunt'
 		}
 	},
 	steps: {
@@ -120,8 +120,8 @@ const translations = {
 			en: 'This step could not be found.'
 		},
 		finish: {
-			de: 'Jagd abschließen',
-			en: 'Finish hunt'
+			de: 'Schnitzeljagd abschließen',
+			en: 'Finish treasure hunt'
 		},
 		next: {
 			de: 'Weiter',
@@ -200,7 +200,7 @@ const translations = {
 			en: 'No treasure hunt was found for this code.'
 		},
 		huntCompleted: {
-			de: 'Jagd abgeschlossen!',
+			de: 'Schnitzeljagd abgeschlossen!',
 			en: 'Treasure hunt completed!'
 		}
 	},
@@ -208,10 +208,6 @@ const translations = {
 		copyright: {
 			de: '© {year} Henahax',
 			en: '© {year} Henahax'
-		},
-		source: {
-			de: 'Quellcode',
-			en: 'Source code'
 		}
 	}
 } as const;
