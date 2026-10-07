@@ -3,6 +3,7 @@
 	import { translator } from '#lib/translator/index.svelte.js';
 	import { resolve } from '$app/paths';
 	import { setActiveTreasureHunt, type TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import shareImage from '#lib/assets/share.png';
 
 	import QRInput from '#lib/components/QRInput.svelte';
 
@@ -52,4 +53,9 @@
 		<i class="fa-regular fa-compass"></i>
 		<span>{translator.translate('nav.browse')}</span>
 	</a>
+
+	<div class="flex flex-col items-center gap-2">
+		<div>share test:</div>
+		<img src={shareImage} alt="Treasure Hunt 1" class="h-1/2 w-1/2 rounded-xl object-cover" />
+	</div>
 </div>
