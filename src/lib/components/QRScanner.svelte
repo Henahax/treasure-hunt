@@ -37,6 +37,11 @@
 	}
 
 	async function start() {
+		if (!window.isSecureContext) {
+			scanError = translator.translate('scanner.secureContextRequired');
+			return;
+		}
+
 		try {
 			scanner = new QrScanner(
 				videoElement,
