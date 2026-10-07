@@ -142,8 +142,8 @@ const translations = {
 			en: 'The camera could not be started.'
 		},
 		cameraPermissionDenied: {
-			de: 'Der Kamerazugriff wurde blockiert. Prüfe die Website-Berechtigung in Chrome und die Kamera-Berechtigung für Chrome in den Android-Einstellungen.',
-			en: 'Camera access was blocked. Check the site permission in Chrome and Chrome camera permission in Android settings.'
+			de: 'Der Kamerazugriff wurde blockiert. Prüfe die Berechtigung für diese Website in den Browser-Einstellungen und ob dein Gerät dem Browser Kamerazugriff erlaubt.',
+			en: 'Camera access was blocked. Check this site’s permission in your browser settings and make sure your device allows the browser to use the camera.'
 		},
 		permissionInfo: {
 			de: 'Zum Scannen eines QR-Codes benötigt diese Seite Zugriff auf die Kamera.',
@@ -212,8 +212,8 @@ const translations = {
 			en: 'Your current location is needed to verify this step.'
 		},
 		locationPermissionDenied: {
-			de: 'Der Standortzugriff wurde blockiert. Prüfe die Website-Berechtigung in Chrome und die Standort-Berechtigung für Chrome in den Android-Einstellungen.',
-			en: 'Location access was blocked. Check the site permission in Chrome and Chrome location permission in Android settings.'
+			de: 'Der Standortzugriff wurde blockiert. Prüfe die Berechtigung für diese Website in den Browser-Einstellungen und ob dein Gerät dem Browser Standortzugriff erlaubt.',
+			en: 'Location access was blocked. Check this site’s permission in your browser settings and make sure your device allows the browser to use location.'
 		},
 		secureContextRequired: {
 			de: 'Die Standortbestimmung funktioniert nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',

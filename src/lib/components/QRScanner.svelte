@@ -48,7 +48,17 @@
 
 		isStarting = true;
 		scanError = '';
+		let cameraStream: MediaStream | undefined;
 		try {
+			if (!navigator.mediaDevices?.getUserMedia) {
+				throw new Error('Camera API is unavailable in this browser context');
+			}
+
+			cameraStream = await navigator.mediaDevices.getUserMedia({
+				audio: false,
+				video: { facingMode: { ideal: 'environment' } }
+			});
+			videoElement.srcObject = cameraStream;
 			scanner = new QrScanner(
 				videoElement,
 				(result) => {
@@ -66,6 +76,8 @@
 				const details = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
 				scanError = `${translator.translate('scanner.cameraError')} (${details})`;
 			}
+			cameraStream?.getTracks().forEach((track) => track.stop());
+			if (videoElement.srcObject === cameraStream) videoElement.srcObject = null;
 			stopScanner();
 		} finally {
 			isStarting = false;
