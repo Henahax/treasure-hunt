@@ -141,6 +141,22 @@ const translations = {
 			de: 'Die Kamera konnte nicht gestartet werden.',
 			en: 'The camera could not be started.'
 		},
+		cameraPermissionDenied: {
+			de: 'Der Kamerazugriff wurde blockiert. Prüfe die Website-Berechtigung in Chrome und die Kamera-Berechtigung für Chrome in den Android-Einstellungen.',
+			en: 'Camera access was blocked. Check the site permission in Chrome and Chrome camera permission in Android settings.'
+		},
+		permissionInfo: {
+			de: 'Zum Scannen eines QR-Codes benötigt diese Seite Zugriff auf die Kamera.',
+			en: 'This page needs camera access to scan a QR code.'
+		},
+		start: {
+			de: 'Kamera starten',
+			en: 'Start camera'
+		},
+		starting: {
+			de: 'Kamera wird gestartet ...',
+			en: 'Starting camera ...'
+		},
 		secureContextRequired: {
 			de: 'Kamera und Standort funktionieren nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',
 			en: 'Camera and location require HTTPS. Open this page over a secure HTTPS connection.'
@@ -191,9 +207,13 @@ const translations = {
 			de: 'Standort wird geprüft ...',
 			en: 'Checking location ...'
 		},
+		locationPermissionInfo: {
+			de: 'Für diese Etappe wird dein aktueller Standort geprüft.',
+			en: 'Your current location is needed to verify this step.'
+		},
 		locationPermissionDenied: {
-			de: 'Der Standortzugriff wurde verweigert. Erlaube ihn in den Website-Einstellungen deines Browsers.',
-			en: 'Location access was denied. Allow it in your browser site settings.'
+			de: 'Der Standortzugriff wurde blockiert. Prüfe die Website-Berechtigung in Chrome und die Standort-Berechtigung für Chrome in den Android-Einstellungen.',
+			en: 'Location access was blocked. Check the site permission in Chrome and Chrome location permission in Android settings.'
 		},
 		secureContextRequired: {
 			de: 'Die Standortbestimmung funktioniert nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',

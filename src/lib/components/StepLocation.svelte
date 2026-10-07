@@ -61,6 +61,7 @@
 	}
 </script>
 
+<p>{translator.translate('messages.locationPermissionInfo')}</p>
 <button class="btn btn-primary w-full" onclick={checkLocation}>
 	<i class="fa-solid fa-location-dot"></i>
 	<span>{translator.translate('form.checkLocation')}</span>
