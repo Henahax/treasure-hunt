@@ -18,8 +18,6 @@
 	let videoElement: HTMLVideoElement;
 	let scanner: QrScanner | undefined;
 	let scanError = $state('');
-	let isStarting = $state(false);
-	let isScanning = $state(false);
 
 	function stopScanner() {
 		scanner?.stop();
@@ -39,14 +37,6 @@
 	}
 
 	async function start() {
-		if (isStarting || isScanning) return;
-
-		if (!window.isSecureContext) {
-			scanError = translator.translate('scanner.secureContextRequired');
-			return;
-		}
-
-		isStarting = true;
 		scanError = '';
 		let cameraStream: MediaStream | undefined;
 		try {
@@ -68,24 +58,18 @@
 				{ returnDetailedScanResult: true }
 			);
 			await scanner.start();
-			isScanning = true;
 		} catch (error) {
-			if (error instanceof Error && error.name === 'NotAllowedError') {
-				scanError = translator.translate('scanner.cameraPermissionDenied');
-			} else {
-				const details = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
-				scanError = `${translator.translate('scanner.cameraError')} (${details})`;
-			}
+			const details = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+			scanError = `${translator.translate('scanner.cameraError')} (${details})`;
 			cameraStream?.getTracks().forEach((track) => track.stop());
 			if (videoElement.srcObject === cameraStream) videoElement.srcObject = null;
 			stopScanner();
-		} finally {
-			isStarting = false;
 		}
 	}
 
 	onMount(() => {
 		dialogElement.showModal();
+		void start();
 	});
 
 	onDestroy(stopScanner);
@@ -109,15 +93,6 @@
 			<i class="fa-solid fa-xmark"></i>
 		</button>
 	</div>
-	<p>{translator.translate('scanner.permissionInfo')}</p>
-	{#if !isScanning}
-		<button type="button" class="btn btn-primary w-full" onclick={start} disabled={isStarting}>
-			<i class="fa-solid fa-camera"></i>
-			<span>
-				{translator.translate(isStarting ? 'scanner.starting' : 'scanner.start')}
-			</span>
-		</button>
-	{/if}
 	<video bind:this={videoElement} class="scanner-video" autoplay muted playsinline></video>
 	{#if scanError}<p class="text-error">{scanError}</p>{/if}
 </dialog>

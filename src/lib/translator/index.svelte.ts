@@ -138,28 +138,8 @@ const translations = {
 			en: 'Close scanner'
 		},
 		cameraError: {
-			de: 'Die Kamera konnte nicht gestartet werden.',
-			en: 'The camera could not be started.'
-		},
-		cameraPermissionDenied: {
-			de: 'Der Kamerazugriff wurde blockiert. Prüfe die Berechtigung für diese Website in den Browser-Einstellungen und ob dein Gerät dem Browser Kamerazugriff erlaubt.',
-			en: 'Camera access was blocked. Check this site’s permission in your browser settings and make sure your device allows the browser to use the camera.'
-		},
-		permissionInfo: {
-			de: 'Zum Scannen eines QR-Codes benötigt diese Seite Zugriff auf die Kamera.',
-			en: 'This page needs camera access to scan a QR code.'
-		},
-		start: {
-			de: 'Kamera starten',
-			en: 'Start camera'
-		},
-		starting: {
-			de: 'Kamera wird gestartet ...',
-			en: 'Starting camera ...'
-		},
-		secureContextRequired: {
-			de: 'Kamera und Standort funktionieren nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',
-			en: 'Camera and location require HTTPS. Open this page over a secure HTTPS connection.'
+			de: 'Der Kamerazugriff ist fehlgeschlagen. Prüfe die Website- und Geräteberechtigungen.',
+			en: 'Camera access failed. Check the site and device permissions.'
 		}
 	},
 	form: {
@@ -207,17 +187,9 @@ const translations = {
 			de: 'Standort wird geprüft ...',
 			en: 'Checking location ...'
 		},
-		locationPermissionInfo: {
-			de: 'Für diese Etappe wird dein aktueller Standort geprüft.',
-			en: 'Your current location is needed to verify this step.'
-		},
 		locationPermissionDenied: {
 			de: 'Der Standortzugriff wurde blockiert. Prüfe die Berechtigung für diese Website in den Browser-Einstellungen und ob dein Gerät dem Browser Standortzugriff erlaubt.',
 			en: 'Location access was blocked. Check this site’s permission in your browser settings and make sure your device allows the browser to use location.'
-		},
-		secureContextRequired: {
-			de: 'Die Standortbestimmung funktioniert nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',
-			en: 'Location requires HTTPS. Open this page over a secure HTTPS connection.'
 		},
 		locationDistance: {
 			de: 'Du bist noch etwa {distance} m vom Ziel entfernt.',
