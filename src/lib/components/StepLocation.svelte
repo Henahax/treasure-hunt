@@ -11,11 +11,6 @@
 	let stepMessage = $state('');
 
 	function checkLocation() {
-		if (!window.isSecureContext) {
-			stepMessage = translator.translate('messages.secureContextRequired');
-			return;
-		}
-
 		if (!navigator.geolocation) {
 			stepMessage = translator.translate('messages.locationUnsupported');
 			return;
@@ -61,7 +56,6 @@
 	}
 </script>
 
-<p>{translator.translate('messages.locationPermissionInfo')}</p>
 <button class="btn btn-primary w-full" onclick={checkLocation}>
 	<i class="fa-solid fa-location-dot"></i>
 	<span>{translator.translate('form.checkLocation')}</span>
