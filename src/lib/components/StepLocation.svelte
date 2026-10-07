@@ -11,6 +11,11 @@
 	let stepMessage = $state('');
 
 	function checkLocation() {
+		if (!window.isSecureContext) {
+			stepMessage = translator.translate('messages.secureContextRequired');
+			return;
+		}
+
 		if (!navigator.geolocation) {
 			stepMessage = translator.translate('messages.locationUnsupported');
 			return;
@@ -44,8 +49,12 @@
 					});
 				}
 			},
-			() => {
-				stepMessage = translator.translate('messages.locationFailed');
+			(error) => {
+				stepMessage = translator.translate(
+					error.code === error.PERMISSION_DENIED
+						? 'messages.locationPermissionDenied'
+						: 'messages.locationFailed'
+				);
 			},
 			{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
 		);

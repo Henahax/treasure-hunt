@@ -140,6 +140,10 @@ const translations = {
 		cameraError: {
 			de: 'Die Kamera konnte nicht gestartet werden.',
 			en: 'The camera could not be started.'
+		},
+		secureContextRequired: {
+			de: 'Kamera und Standort funktionieren nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',
+			en: 'Camera and location require HTTPS. Open this page over a secure HTTPS connection.'
 		}
 	},
 	form: {
@@ -186,6 +190,14 @@ const translations = {
 		locationChecking: {
 			de: 'Standort wird geprüft ...',
 			en: 'Checking location ...'
+		},
+		locationPermissionDenied: {
+			de: 'Der Standortzugriff wurde verweigert. Erlaube ihn in den Website-Einstellungen deines Browsers.',
+			en: 'Location access was denied. Allow it in your browser site settings.'
+		},
+		secureContextRequired: {
+			de: 'Die Standortbestimmung funktioniert nur über HTTPS. Öffne diese Seite über eine sichere HTTPS-Verbindung.',
+			en: 'Location requires HTTPS. Open this page over a secure HTTPS connection.'
 		},
 		locationDistance: {
 			de: 'Du bist noch etwa {distance} m vom Ziel entfernt.',
