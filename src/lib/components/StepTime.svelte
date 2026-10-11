@@ -27,30 +27,32 @@
 	}
 </script>
 
-{#if timeAvailable}
-	<p role="status">{translator.translate('steps.timeUnlocked')}</p>
-{:else}
-	<div class="time-gate">
-		<p class="time-caption">{translator.translate('steps.countdown')}</p>
-		<p
-			class="countdown text-center"
-			role="timer"
-			aria-live="off"
-			style={`--countdown-font-size: ${160 / countdownText.length}cqw`}
-		>
-			{countdownText}
-		</p>
-		<p class="release-date">
-			{translator.translate('steps.releaseAt')}
-			<time datetime={releaseDate.toISOString()}>
-				{releaseDate.toLocaleString(translator.locale, {
-					dateStyle: 'long',
-					timeStyle: 'short'
-				})}
-			</time>
-		</p>
-	</div>
-{/if}
+<section class="step-card">
+	{#if timeAvailable}
+		<p role="status">{translator.translate('steps.timeUnlocked')}</p>
+	{:else}
+		<div class="time-gate">
+			<p class="time-caption">{translator.translate('steps.countdown')}</p>
+			<p
+				class="countdown text-center"
+				role="timer"
+				aria-live="off"
+				style={`--countdown-font-size: ${160 / countdownText.length}cqw`}
+			>
+				{countdownText}
+			</p>
+			<p class="release-date">
+				{translator.translate('steps.releaseAt')}
+				<time datetime={releaseDate.toISOString()}>
+					{releaseDate.toLocaleString(translator.locale, {
+						dateStyle: 'long',
+						timeStyle: 'short'
+					})}
+				</time>
+			</p>
+		</div>
+	{/if}
+</section>
 
 <style>
 	.time-gate {

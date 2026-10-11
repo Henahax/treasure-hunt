@@ -56,11 +56,13 @@
 	}
 </script>
 
-<button class="btn btn-primary w-full" onclick={checkLocation}>
-	<i class="fa-solid fa-location-dot"></i>
-	<span>{translator.translate('form.checkLocation')}</span>
-</button>
+<section class="step-card flex flex-col gap-4">
+	<button class="btn btn-primary w-full" onclick={checkLocation}>
+		<i class="fa-solid fa-location-dot"></i>
+		<span>{translator.translate('form.checkLocation')}</span>
+	</button>
 
-{#if stepMessage}
-	<p role="status">{stepMessage}</p>
-{/if}
+	{#if stepMessage}
+		<p role="status">{stepMessage}</p>
+	{/if}
+</section>

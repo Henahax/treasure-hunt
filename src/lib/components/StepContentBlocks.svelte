@@ -10,25 +10,38 @@
 	/* eslint-disable svelte/no-at-html-tags -- Markdown is sanitized before rendering. */
 </script>
 
-{#each content as block}
-	{#if block.type === 'text' && block.text}
-		<div class="prose max-w-none">
-			{@html sanitizeHtml(marked.parse(block.text, { async: false }))}
-		</div>
-	{:else if block.type === 'link' && block.url}
-		<a href={block.url} target="_blank" rel="noopener noreferrer" class="btn btn-neutral w-fit">
-			<i class="fa-solid fa-arrow-up-right-from-square"></i>
-			<span>
-				{#if block.text}
-					{block.text}
-				{:else}
-					{translator.translate('actions.openLink')}
-				{/if}
-			</span>
-		</a>
-	{:else if block.type === 'image' && block.url}
-		<img src={block.url} alt={title} class="h-auto max-h-112 w-full rounded-md object-cover" />
-	{:else if block.type === 'video' && block.url}
-		<StepContentVideo url={block.url} {title} />
-	{/if}
-{/each}
+<div class="flex flex-col gap-4">
+	{#each content as block}
+		{#if block.type === 'text' && block.text}
+			<article class="step-card prose max-w-none">
+				{@html sanitizeHtml(marked.parse(block.text, { async: false }))}
+			</article>
+		{:else if block.type === 'link' && block.url}
+			<article class="step-card">
+				<a
+					href={block.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn btn-neutral w-full"
+				>
+					<i class="fa-solid fa-arrow-up-right-from-square"></i>
+					<span>
+						{#if block.text}
+							{block.text}
+						{:else}
+							{translator.translate('actions.openLink')}
+						{/if}
+					</span>
+				</a>
+			</article>
+		{:else if block.type === 'image' && block.url}
+			<article class="step-card">
+				<img src={block.url} alt={title} class="h-auto max-h-112 w-full rounded-md object-cover" />
+			</article>
+		{:else if block.type === 'video' && block.url}
+			<article class="step-card">
+				<StepContentVideo url={block.url} {title} />
+			</article>
+		{/if}
+	{/each}
+</div>
