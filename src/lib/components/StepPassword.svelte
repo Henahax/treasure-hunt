@@ -20,16 +20,18 @@
 	}
 </script>
 
-<form class="flex flex-wrap items-end gap-2" onsubmit={submitPassword}>
-	<QRInput
-		bind:value={passwordInput}
-		inputLabel={translator.translate('form.passwordCode')}
-		placeholder={translator.translate('form.passwordCode')}
-		submitLabel={translator.translate('form.verifyPassword')}
-		required
-	/>
-</form>
+<section class="step-card flex flex-col gap-4">
+	<form class="flex flex-wrap items-end gap-2" onsubmit={submitPassword}>
+		<QRInput
+			bind:value={passwordInput}
+			inputLabel={translator.translate('form.passwordCode')}
+			placeholder={translator.translate('form.passwordCode')}
+			submitLabel={translator.translate('form.verifyPassword')}
+			required
+		/>
+	</form>
 
-{#if stepMessage}
-	<p role="status">{stepMessage}</p>
-{/if}
+	{#if stepMessage}
+		<p role="status">{stepMessage}</p>
+	{/if}
+</section>
