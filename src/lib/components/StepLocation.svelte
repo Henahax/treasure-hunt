@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { translator } from '#lib/translator/index.svelte.js';
 
+	const LOCATION_RADIUS_METERS = 25;
+
 	let {
 		location,
 		onSuccess
 	}: {
-		location: { latitude: number; longitude: number; radius: number };
+		location: { latitude: number; longitude: number };
 		onSuccess: () => void;
 	} = $props();
 
@@ -36,27 +38,32 @@
 					Math.asin(
 						Math.sqrt(
 							Math.sin(latitudeDelta / 2) ** 2 +
-								Math.cos(latitude) *
-									Math.cos(currentLatitude) *
-									Math.sin(longitudeDelta / 2) ** 2
+								Math.cos(latitude) * Math.cos(currentLatitude) * Math.sin(longitudeDelta / 2) ** 2
 						)
 					);
 
-				console.log({
-					targetLat: location.latitude,
-					targetLon: location.longitude,
-					currentLat: coords.latitude,
-					currentLon: coords.longitude,
-					accuracy: coords.accuracy,
-					distance,
-					radius: location.radius
-				});
+				const isWithinRadius = distance <= LOCATION_RADIUS_METERS;
 
-				if (distance <= location.radius) {
+				console.groupCollapsed('Location check');
+				console.table([
+					{
+						Target: `${location.latitude}, ${location.longitude}`,
+						'Current position': `${coords.latitude}, ${coords.longitude}`,
+						Distance: `${Math.round(distance)} m`,
+						'GPS accuracy': `${Math.round(coords.accuracy)} m`,
+						'Allowed radius': `${LOCATION_RADIUS_METERS} m`,
+						Result: isWithinRadius ? 'inside' : 'outside'
+					}
+				]);
+				console.groupEnd();
+
+				if (isWithinRadius) {
 					stepMessage = '';
 					onSuccess();
 				} else {
-					stepMessage = `Distanz: ${Math.round(distance)}m | GPS-Genauigkeit: ${Math.round(coords.accuracy)}m | Zielradius: ${location.radius}m`;
+					stepMessage = translator.translate('messages.locationDistance', {
+						distance: Math.round(distance)
+					});
 				}
 			},
 			(error) => {

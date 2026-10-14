@@ -17,9 +17,9 @@ export type TreasureHuntStep =
 	| (TreasureHuntStepBase & { type: 'text' })
 	| (TreasureHuntStepBase & { type: 'password'; password: string })
 	| (TreasureHuntStepBase & {
-			type: 'location';
-			location: { latitude: number; longitude: number; radius: number };
-	  })
+		type: 'location';
+		location: { latitude: number; longitude: number };
+	})
 	| (TreasureHuntStepBase & { type: 'time'; time: number });
 
 export type TreasureHuntContent = {

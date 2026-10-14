@@ -50,8 +50,7 @@
 			"type": "location",
 			"location": {
 				"latitude": 48.137154,
-				"longitude": 11.57549,
-				"radius": 50
+				"longitude": 11.57549
 			},
 			"content": [
 				{
