@@ -1,7 +1,7 @@
 {
 	"id": "location-5",
-	"name": "Test: Standort 5m Radius",
-	"description": "Ein Standorttest mit 5m Radius.",
+	"name": "Standorttest: Knödelplatz",
+	"description": "Ein Standorttest am Knödelplatz.",
 	"public": true,
 	"picture": "https://www.eventfabrik-muenchen.de/wp-content/uploads/2024/11/knoedelplatz-impressum-3.jpg",
 	"steps": [
@@ -11,8 +11,7 @@
 			"type": "location",
 			"location": {
 				"latitude": 48.124446,
-				"longitude": 11.605579,
-				"radius": 5
+				"longitude": 11.605579
 			},
 			"content": [
 				{
