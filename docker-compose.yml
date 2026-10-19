@@ -1,7 +1,7 @@
 services:
   nginx:
-    image: henahax/treasurehunt:latest
-    container_name: henahax-treasurehunt
+    image: henahax/treasure-hunt:latest
+    container_name: henahax-treasure-hunt
     environment:
       - PUID=1000
       - PGID=1000
