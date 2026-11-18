@@ -94,7 +94,7 @@
 		</button>
 	</div>
 	<video bind:this={videoElement} class="scanner-video" autoplay muted playsinline></video>
-	{#if scanError}<p class="text-error">{scanError}</p>{/if}
+	{#if scanError}<p class="text-error" role="alert">{scanError}</p>{/if}
 </dialog>
 
 <style>

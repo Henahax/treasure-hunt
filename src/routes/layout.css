@@ -49,6 +49,15 @@
 	padding: 1rem;
 }
 
+dialog:modal {
+	overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+	overflow: hidden;
+	overscroll-behavior: contain;
+}
+
 .btn {
 	cursor: pointer;
 	padding: 0.5em 1em;
