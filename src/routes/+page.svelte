@@ -2,21 +2,13 @@
 	import { goto } from '$app/navigation';
 	import { translator } from '#lib/translator/index.svelte.js';
 	import { resolve } from '$app/paths';
-	import { setActiveTreasureHunt, type TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { setActiveTreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { treasureHunts } from '#lib/treasure-hunt-catalog.js';
 	import shareImage from '#lib/assets/share.png';
 
 	import QRInput from '#lib/components/QRInput.svelte';
 
 	import TreasureHuntActive from '#lib/components/TreasureHuntActive.svelte';
-
-	const treasureHunts = Object.entries(
-		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {
-			eager: true,
-			import: 'default'
-		})
-	)
-		.filter(([path]) => !path.endsWith('/schema.json'))
-		.map(([, hunt]) => hunt);
 
 	let huntCode = $state('');
 	let codeError = $state('');

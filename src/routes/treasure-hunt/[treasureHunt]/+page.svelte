@@ -8,19 +8,11 @@
 		treasureHunt
 	} from '#lib/state/treasure-hunt.svelte.js';
 	import ResetActiveTreasureHunt from '#lib/components/TreasureHuntActiveReset.svelte';
-	import type { TreasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { treasureHunts } from '#lib/treasure-hunt-catalog.js';
 	import { translator } from '#lib/translator/index.svelte.js';
 
 	import type { PageProps } from './$types';
 	let { params }: PageProps = $props();
-	const treasureHunts = Object.entries(
-		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {
-			eager: true,
-			import: 'default'
-		})
-	)
-		.filter(([path]) => !path.endsWith('/schema.json'))
-		.map(([, hunt]) => hunt);
 	const selectedTreasureHunt = $derived(
 		treasureHunts.find((hunt) => hunt.id === params.treasureHunt.toLowerCase()) ?? null
 	);

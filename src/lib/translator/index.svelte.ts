@@ -111,6 +111,14 @@ const translations = {
 			de: 'Fortschritt wird geladen ...',
 			en: 'Loading progress ...'
 		},
+		progressInvalid: {
+			de: 'Ungültiger gespeicherter Fortschritt wurde teilweise verworfen.',
+			en: 'Invalid saved progress was partially discarded.'
+		},
+		progressUnavailable: {
+			de: 'Fortschritt kann auf diesem Gerät nicht dauerhaft gespeichert werden.',
+			en: 'Progress cannot be saved persistently on this device.'
+		},
 		locked: {
 			de: 'Dieser Schritt ist noch gesperrt. Du wirst zum nächsten offenen Schritt weitergeleitet.',
 			en: 'This step is still locked. You are being redirected to the next available step.'
@@ -218,10 +226,10 @@ const translations = {
 
 type TranslationPaths<T> = {
 	[Key in keyof T & string]: T[Key] extends Record<Locale, string>
-	? Key
-	: T[Key] extends object
-	? `${Key}.${TranslationPaths<T[Key]>}`
-	: never;
+		? Key
+		: T[Key] extends object
+			? `${Key}.${TranslationPaths<T[Key]>}`
+			: never;
 }[keyof T & string];
 
 type TranslationKey = TranslationPaths<typeof translations>;
