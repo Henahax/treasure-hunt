@@ -17,9 +17,9 @@ export type TreasureHuntStep =
 	| (TreasureHuntStepBase & { type: 'text' })
 	| (TreasureHuntStepBase & { type: 'password'; password: string })
 	| (TreasureHuntStepBase & {
-		type: 'location';
-		location: { latitude: number; longitude: number };
-	})
+			type: 'location';
+			location: { latitude: number; longitude: number };
+	  })
 	| (TreasureHuntStepBase & { type: 'time'; time: number });
 
 export type TreasureHuntContent = {
@@ -30,54 +30,96 @@ export type TreasureHuntContent = {
 
 const progressStorageKey = 'treasure-hunt-progress';
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 export const treasureHunt = $state<{
 	active: TreasureHunt | null;
 	progressLoaded: boolean;
 	completedStepsByHunt: Record<string, string[]>;
+	storageWarning: 'invalid' | 'unavailable' | null;
 }>({
 	active: null,
 	progressLoaded: false,
-	completedStepsByHunt: {}
+	completedStepsByHunt: {},
+	storageWarning: null
 });
 
 export function initializeTreasureHuntState(hunts: TreasureHunt[]) {
 	if (typeof window === 'undefined' || treasureHunt.progressLoaded) return;
 
 	let activeHuntId: string | null = null;
-	let storedState: unknown;
+	let storedState: unknown = null;
+	let savedState: string | null = null;
 
 	try {
-		const savedState = window.localStorage.getItem(progressStorageKey);
-		if (savedState) storedState = JSON.parse(savedState);
+		savedState = window.localStorage.getItem(progressStorageKey);
 	} catch {
-		storedState = undefined;
+		treasureHunt.storageWarning = 'unavailable';
+	}
+
+	if (savedState) {
+		try {
+			storedState = JSON.parse(savedState);
+		} catch {
+			treasureHunt.storageWarning = 'invalid';
+		}
 	}
 
 	const completedStepsByHunt: Record<string, string[]> = {};
+	let hasInvalidData = false;
 
-	if (storedState && typeof storedState === 'object') {
-		const stored = storedState as Record<string, unknown>;
-		if (typeof stored.activeHuntId === 'string') activeHuntId = stored.activeHuntId;
+	if (storedState !== null) {
+		if (
+			!isRecord(storedState) ||
+			typeof storedState.completedStepsByHunt !== 'object' ||
+			storedState.completedStepsByHunt === null ||
+			Array.isArray(storedState.completedStepsByHunt) ||
+			(storedState.activeHuntId !== null && typeof storedState.activeHuntId !== 'string')
+		) {
+			hasInvalidData = true;
+		} else {
+			const completedSteps = storedState.completedStepsByHunt as Record<string, unknown>;
+			activeHuntId = storedState.activeHuntId as string | null;
 
-		if (stored.completedStepsByHunt && typeof stored.completedStepsByHunt === 'object') {
-			for (const [huntId, stepIds] of Object.entries(stored.completedStepsByHunt)) {
+			for (const [huntId, stepIds] of Object.entries(completedSteps)) {
 				const hunt = hunts.find((candidate) => candidate.id === huntId);
-				if (!hunt || !Array.isArray(stepIds)) continue;
+				if (!hunt) continue;
+				if (!Array.isArray(stepIds)) {
+					hasInvalidData = true;
+					continue;
+				}
 
+				const validStepIds = hunt.steps.map((step) => step.id);
 				const completedStepIds = stepIds.filter(
-					(stepId): stepId is string =>
-						typeof stepId === 'string' && hunt.steps.some((step) => step.id === stepId)
+					(stepId): stepId is string => typeof stepId === 'string' && validStepIds.includes(stepId)
 				);
+				if (
+					completedStepIds.length !== stepIds.length ||
+					completedStepIds.some((stepId, index) => completedStepIds.indexOf(stepId) !== index)
+				) {
+					hasInvalidData = true;
+				}
 
 				if (completedStepIds.length > 0) {
-					completedStepsByHunt[huntId] = completedStepIds;
+					completedStepsByHunt[huntId] = completedStepIds.filter(
+						(stepId, index) => completedStepIds.indexOf(stepId) === index
+					);
 				}
 			}
 		}
 	}
 
+	if (hasInvalidData && treasureHunt.storageWarning === null) {
+		treasureHunt.storageWarning = 'invalid';
+	}
 	treasureHunt.completedStepsByHunt = completedStepsByHunt;
 	treasureHunt.active = hunts.find((hunt) => hunt.id === activeHuntId) ?? null;
+	if (activeHuntId !== null && !treasureHunt.active) hasInvalidData = true;
+	if (hasInvalidData && treasureHunt.storageWarning === null) {
+		treasureHunt.storageWarning = 'invalid';
+	}
 	treasureHunt.progressLoaded = true;
 }
 
@@ -138,7 +180,8 @@ function persistTreasureHuntState() {
 				completedStepsByHunt: treasureHunt.completedStepsByHunt
 			})
 		);
+		treasureHunt.storageWarning = null;
 	} catch {
-		return;
+		treasureHunt.storageWarning = 'unavailable';
 	}
 }

@@ -18,14 +18,17 @@
 	let videoElement: HTMLVideoElement;
 	let scanner: QrScanner | undefined;
 	let scanError = $state('');
+	let isClosed = false;
 
 	function stopScanner() {
-		scanner?.stop();
 		scanner?.destroy();
 		scanner = undefined;
+		videoElement?.pause();
+		if (videoElement) videoElement.srcObject = null;
 	}
 
 	function close() {
+		isClosed = true;
 		stopScanner();
 		if (dialogElement.open) dialogElement.close();
 		onclose();
@@ -38,41 +41,40 @@
 
 	async function start() {
 		scanError = '';
-		let cameraStream: MediaStream | undefined;
 		try {
 			if (!navigator.mediaDevices?.getUserMedia) {
 				throw new Error('Camera API is unavailable in this browser context');
 			}
 
-			cameraStream = await navigator.mediaDevices.getUserMedia({
-				audio: false,
-				video: { facingMode: { ideal: 'environment' } }
-			});
-			videoElement.srcObject = cameraStream;
-			scanner = new QrScanner(
+			const activeScanner = new QrScanner(
 				videoElement,
 				(result) => {
+					if (isClosed) return;
 					onresult(result.data);
 					close();
 				},
 				{ returnDetailedScanResult: true }
 			);
-			await scanner.start();
-		} catch (error) {
-			const details = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
-			scanError = `${translator.translate('scanner.cameraError')} (${details})`;
-			cameraStream?.getTracks().forEach((track) => track.stop());
-			if (videoElement.srcObject === cameraStream) videoElement.srcObject = null;
+			scanner = activeScanner;
+			await activeScanner.start();
+			if (isClosed) activeScanner.destroy();
+		} catch {
+			if (isClosed) return;
+			scanError = translator.translate('scanner.cameraError');
 			stopScanner();
 		}
 	}
 
 	onMount(() => {
+		isClosed = false;
 		dialogElement.showModal();
 		void start();
 	});
 
-	onDestroy(stopScanner);
+	onDestroy(() => {
+		isClosed = true;
+		stopScanner();
+	});
 </script>
 
 <dialog
@@ -94,7 +96,7 @@
 		</button>
 	</div>
 	<video bind:this={videoElement} class="scanner-video" autoplay muted playsinline></video>
-	{#if scanError}<p class="text-error">{scanError}</p>{/if}
+	{#if scanError}<p class="text-error" role="alert">{scanError}</p>{/if}
 </dialog>
 
 <style>

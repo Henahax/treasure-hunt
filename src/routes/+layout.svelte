@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { onNavigate } from '$app/navigation';
+	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
@@ -8,24 +8,20 @@
 	import { translator } from '#lib/translator/index.svelte.js';
 	import { resolve } from '$app/paths';
 	import TreasureHuntSteps from '#lib/components/TreasureHuntSteps.svelte';
-	import {
-		initializeTreasureHuntState,
-		treasureHunt,
-		type TreasureHunt
-	} from '#lib/state/treasure-hunt.svelte.js';
+	import { initializeTreasureHuntState, treasureHunt } from '#lib/state/treasure-hunt.svelte.js';
+	import { treasureHunts } from '#lib/treasure-hunt-catalog.js';
 
 	let { children } = $props();
 	const isTreasureHuntStep = $derived(page.route.id === '/treasure-hunt/[treasureHunt]/[step]');
-	const treasureHunts = Object.entries(
-		import.meta.glob<TreasureHunt>('/src/lib/treasure-hunts/*.json', {
-			eager: true,
-			import: 'default'
-		})
-	)
-		.filter(([path]) => !path.endsWith('/schema.json'))
-		.map(([, hunt]) => hunt);
-
 	onMount(() => initializeTreasureHuntState(treasureHunts));
+
+	afterNavigate(({ to }) => {
+		const url = to?.url;
+		const controller = navigator.serviceWorker?.controller;
+		if (url && controller) {
+			controller.postMessage({ type: 'CACHE_NAVIGATION', url: url.href });
+		}
+	});
 
 	onNavigate((navigation) => {
 		if (navigation.shallow) return;
@@ -112,6 +108,16 @@
 </header>
 
 <main class="flex w-full max-w-2xl grow flex-col gap-4 p-4">
+	{#if treasureHunt.storageWarning}
+		<p class="text-error" role="status">
+			{translator.translate(
+				treasureHunt.storageWarning === 'invalid'
+					? 'steps.progressInvalid'
+					: 'steps.progressUnavailable'
+			)}
+		</p>
+	{/if}
+
 	<section id="content" class="flex w-full grow flex-col justify-center gap-4">
 		{@render children()}
 	</section>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import { translator } from '#lib/translator/index.svelte.js';
 
 	const LOCATION_RADIUS_METERS = 25;
@@ -12,6 +13,18 @@
 	} = $props();
 
 	let stepMessage = $state('');
+	let isChecking = $state(false);
+	let locationRequest: number | undefined;
+
+	function cancelLocationRequest() {
+		if (locationRequest === undefined) return;
+
+		navigator.geolocation?.clearWatch(locationRequest);
+		locationRequest = undefined;
+		isChecking = false;
+	}
+
+	onDestroy(cancelLocationRequest);
 
 	function checkLocation() {
 		if (!navigator.geolocation) {
@@ -19,9 +32,11 @@
 			return;
 		}
 
+		cancelLocationRequest();
+		isChecking = true;
 		stepMessage = translator.translate('messages.locationChecking');
 
-		navigator.geolocation.getCurrentPosition(
+		locationRequest = navigator.geolocation.watchPosition(
 			({ coords }) => {
 				const earthRadius = 6_371_000;
 				const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
@@ -42,31 +57,20 @@
 						)
 					);
 
-				const isWithinRadius = distance <= LOCATION_RADIUS_METERS;
-
-				console.groupCollapsed('Location check');
-				console.table([
-					{
-						Target: `${location.latitude}, ${location.longitude}`,
-						'Current position': `${coords.latitude}, ${coords.longitude}`,
-						Distance: `${Math.round(distance)} m`,
-						'GPS accuracy': `${Math.round(coords.accuracy)} m`,
-						'Allowed radius': `${LOCATION_RADIUS_METERS} m`,
-						Result: isWithinRadius ? 'inside' : 'outside'
-					}
-				]);
-				console.groupEnd();
+				const isWithinRadius = distance + coords.accuracy <= LOCATION_RADIUS_METERS;
 
 				if (isWithinRadius) {
+					cancelLocationRequest();
 					stepMessage = '';
 					onSuccess();
 				} else {
 					stepMessage = translator.translate('messages.locationDistance', {
-						distance: Math.round(distance)
+						distance: Math.max(0, Math.round(distance - coords.accuracy))
 					});
 				}
 			},
 			(error) => {
+				cancelLocationRequest();
 				stepMessage = translator.translate(
 					error.code === error.PERMISSION_DENIED
 						? 'messages.locationPermissionDenied'
@@ -75,7 +79,6 @@
 			},
 			{
 				enableHighAccuracy: true,
-				timeout: 10000,
 				maximumAge: 0
 			}
 		);
@@ -83,12 +86,12 @@
 </script>
 
 <section class="step-card flex flex-col gap-4">
-	<button class="btn btn-primary w-full" onclick={checkLocation}>
+	<button class="btn btn-primary w-full" onclick={checkLocation} disabled={isChecking}>
 		<i class="fa-solid fa-location-dot"></i>
 		<span>{translator.translate('form.checkLocation')}</span>
 	</button>
 
 	{#if stepMessage}
-		<p role="status">{stepMessage}</p>
+		<p role={isChecking ? 'status' : 'alert'}>{stepMessage}</p>
 	{/if}
 </section>
